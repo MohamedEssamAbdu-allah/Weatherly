@@ -173,7 +173,7 @@
                         app:layout_constraintTop_toTopOf="@+id/humidity_icon" />
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/windSpeed_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -192,9 +192,9 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/wind_label"
                         android:textColor="@color/white"
-                        app:layout_constraintEnd_toEndOf="@+id/textView10"
-                        app:layout_constraintStart_toStartOf="@+id/textView10"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                        app:layout_constraintEnd_toEndOf="@+id/windSpeed_tv"
+                        app:layout_constraintStart_toStartOf="@+id/windSpeed_tv"
+                        app:layout_constraintTop_toBottomOf="@+id/windSpeed_tv" />
 
                     <ImageView
                         android:id="@+id/cloud_icon"

@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherly.model.Current
+import com.example.weatherly.model.RepositoryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -11,7 +13,7 @@ import kotlinx.coroutines.withContext
 import java.text.DateFormat
 import java.util.*
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val repositoryInterface: RepositoryInterface) : ViewModel() {
 
     private lateinit var calendar: Calendar
     private lateinit var currentTime: Date
@@ -52,5 +54,15 @@ class HomeViewModel : ViewModel() {
         calendar = Calendar.getInstance()
         currentTime = calendar.time
     }
+
+    private val _current = MutableLiveData<Current>().apply {
+        viewModelScope.launch(Dispatchers.IO){
+            val data = repositoryInterface.getWeatherData()
+            withContext(Dispatchers.Main){
+                value = data
+            }
+        }
+    }
+    val currentWeather : LiveData<Current> = _current
 
 }

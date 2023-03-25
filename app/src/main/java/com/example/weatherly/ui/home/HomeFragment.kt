@@ -1,6 +1,5 @@
 package com.example.weatherly.ui.home
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
+import com.example.weatherly.R
 import com.example.weatherly.databinding.FragmentHomeBinding
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.weatherly.model.Constants
+import com.example.weatherly.model.Repository
+import com.example.weatherly.network.RetrofitClient
 
 
 class HomeFragment : Fragment() {
@@ -20,14 +22,16 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    lateinit var homeViewModelFactory: HomeViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        homeViewModelFactory = HomeViewModelFactory(Repository.getInstance(RetrofitClient.getInstance()))
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this,homeViewModelFactory).get(HomeViewModel::class.java)
         /*
         NOTE UNICODES FOR WEATHER PREFERENCES
         Celsius = \u2103
@@ -49,6 +53,21 @@ class HomeFragment : Fragment() {
             binding.dateTv.text = it
         }
 
+        homeViewModel.currentWeather.observe(viewLifecycleOwner){
+            val iconUrl ="https://openweathermap.org/img/wn/${it.weather.get(0).icon}.png"
+            binding.temperatureTv.text = getString(R.string.temperature_tv,it.temp,Constants.CELSIUS)
+            binding.humidityTv.text = getString(R.string.humidity_tv,it.humidity,"%")
+            binding.cloudTv.text = getString(R.string.cloud_tv,it.clouds,"%")
+            binding.pressureTv.text = getString(R.string.pressure_tv,it.pressure,"hpa")
+            binding.windSpeedTv.text = getString(R.string.windSpeed_tv,it.wind_speed,"/sec")
+            binding.wetherDesc.text = it.weather.get(0).description
+            Glide.with(requireContext()).load(iconUrl).into(binding.weatherIcon)
+        }
+
+        homeViewModel.currentWeather.observe(viewLifecycleOwner){
+
+
+        }
         //val textView: TextView = binding.textHome
 //        homeViewModel.text.observe(viewLifecycleOwner) {
 //            binding.timeTv.text = it
