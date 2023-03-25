@@ -7,6 +7,7 @@ interface RemoteSource {
     suspend fun getCurrentWeather(
         lat: Double,
         lon: Double,
+        units:String,
         apiKey: String
     ): Current
 

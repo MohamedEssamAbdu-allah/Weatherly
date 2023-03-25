@@ -1,6 +1,7 @@
 package com.example.weatherly.model
 
 import com.example.weatherly.network.RemoteSource
+import com.example.weatherly.utils.Constants
 
 class Repository private constructor(private val remoteSource: RemoteSource) : RepositoryInterface {
     companion object {
@@ -14,7 +15,7 @@ class Repository private constructor(private val remoteSource: RemoteSource) : R
         }
     }
 
-    override suspend fun getWeatherData(): Current {
-       return remoteSource.getCurrentWeather(31.104994885376325,29.775266209000975,"743e6d5345fcf793390c31100d4e51e0")
+    override suspend fun getWeatherData(units:String): Current {
+       return remoteSource.getCurrentWeather(31.104994885376325,29.775266209000975, units, Constants.API_KEY)
     }
 }

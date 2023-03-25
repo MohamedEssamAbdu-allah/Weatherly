@@ -10,9 +10,10 @@ import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.weatherly.R
 import com.example.weatherly.databinding.FragmentHomeBinding
-import com.example.weatherly.model.Constants
 import com.example.weatherly.model.Repository
+import com.example.weatherly.utils.Units
 import com.example.weatherly.network.RetrofitClient
+import com.example.weatherly.utils.SettingsSetup
 
 
 class HomeFragment : Fragment() {
@@ -23,21 +24,20 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     lateinit var homeViewModelFactory: HomeViewModelFactory
+    lateinit var myUnits: Units
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        homeViewModelFactory = HomeViewModelFactory(Repository.getInstance(RetrofitClient.getInstance()))
+        myUnits = Units.IMPERIAL
+        homeViewModelFactory = HomeViewModelFactory(
+            Repository.getInstance(RetrofitClient.getInstance()),
+            SettingsSetup.getInstance(myUnits)
+        )
         val homeViewModel =
-            ViewModelProvider(this,homeViewModelFactory).get(HomeViewModel::class.java)
-        /*
-        NOTE UNICODES FOR WEATHER PREFERENCES
-        Celsius = \u2103
-        Fahrenheit = \u2109
-         */
-
+            ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         binding.weekTv.setOnClickListener {
@@ -49,22 +49,26 @@ class HomeFragment : Fragment() {
         homeViewModel.time.observe(viewLifecycleOwner) {
             binding.timeTv.text = it
         }
-        homeViewModel.date.observe(viewLifecycleOwner){
+        homeViewModel.date.observe(viewLifecycleOwner) {
             binding.dateTv.text = it
         }
 
-        homeViewModel.currentWeather.observe(viewLifecycleOwner){
-            val iconUrl ="https://openweathermap.org/img/wn/${it.weather.get(0).icon}.png"
-            binding.temperatureTv.text = getString(R.string.temperature_tv,it.temp,Constants.CELSIUS)
-            binding.humidityTv.text = getString(R.string.humidity_tv,it.humidity,"%")
-            binding.cloudTv.text = getString(R.string.cloud_tv,it.clouds,"%")
-            binding.pressureTv.text = getString(R.string.pressure_tv,it.pressure,"hpa")
-            binding.windSpeedTv.text = getString(R.string.windSpeed_tv,it.wind_speed,"/sec")
+        homeViewModel.currentWeather.observe(viewLifecycleOwner) {
+            val iconUrl = "https://openweathermap.org/img/wn/${it.weather.get(0).icon}.png"
+            binding.temperatureTv.text = getString(
+                R.string.temperature_tv,
+                it.temp,
+                SettingsSetup.getInstance().degreeSymbol
+            )
+            binding.humidityTv.text = getString(R.string.humidity_tv, it.humidity, "%")
+            binding.cloudTv.text = getString(R.string.cloud_tv, it.clouds, "%")
+            binding.pressureTv.text = getString(R.string.pressure_tv, it.pressure, " hPa")
+            binding.windSpeedTv.text = getString(R.string.windSpeed_tv, it.wind_speed, SettingsSetup.getInstance().windSpeed)
             binding.wetherDesc.text = it.weather.get(0).description
             Glide.with(requireContext()).load(iconUrl).into(binding.weatherIcon)
         }
 
-        homeViewModel.currentWeather.observe(viewLifecycleOwner){
+        homeViewModel.currentWeather.observe(viewLifecycleOwner) {
 
 
         }
@@ -79,8 +83,6 @@ class HomeFragment : Fragment() {
 //        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()) // Define the date format
 //        val formattedDate = dateFormat.format(date)
 //        println(formattedDate)
-
-
 
 
         return root

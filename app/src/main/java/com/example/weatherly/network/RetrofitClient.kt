@@ -11,9 +11,9 @@ class RetrofitClient private constructor() : RemoteSource {
     }
 
     override suspend fun getCurrentWeather(
-        lat: Double, lon: Double, apiKey: String
+        lat: Double, lon: Double,units:String, apiKey: String
     ): Current {
-        return weatherService.getWeather(lat, lon, apiKey).current
+        return weatherService.getWeather(lat, lon, units,apiKey).current
     }
 
 
