@@ -90,6 +90,7 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/testing_card"
                 android:layout_width="370dp"
                 android:layout_height="367dp"
                 android:layout_marginStart="20dp"
