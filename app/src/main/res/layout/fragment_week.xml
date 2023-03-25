@@ -72,7 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Chicago,America"
+                        android:text="Cairo,Alexandria"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold"
