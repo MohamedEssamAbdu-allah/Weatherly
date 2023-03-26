@@ -1,6 +1,7 @@
 package com.example.weatherly.network
 
 import com.example.weatherly.model.Current
+import com.example.weatherly.model.Hourly
 
 class RetrofitClient private constructor() : RemoteSource {
 
@@ -14,6 +15,15 @@ class RetrofitClient private constructor() : RemoteSource {
         lat: Double, lon: Double,units:String, apiKey: String
     ): Current {
         return weatherService.getWeather(lat, lon, units,apiKey).current
+    }
+
+    override suspend fun getHourlyWeather(
+        lat: Double,
+        lon: Double,
+        units: String,
+        apiKey: String
+    ): List<Hourly> {
+        return weatherService.getWeather(lat,lon,units,apiKey).hourly
     }
 
 

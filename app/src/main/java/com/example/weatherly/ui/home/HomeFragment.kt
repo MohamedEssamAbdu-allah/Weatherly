@@ -16,7 +16,7 @@ import com.example.weatherly.network.RetrofitClient
 import com.example.weatherly.utils.SettingsSetup
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),HomeClickListener {
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -25,13 +25,14 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     lateinit var homeViewModelFactory: HomeViewModelFactory
     lateinit var myUnits: Units
+    lateinit var homeAdapter: HomeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        myUnits = Units.IMPERIAL
+        myUnits = Units.METRIC
         homeViewModelFactory = HomeViewModelFactory(
             Repository.getInstance(RetrofitClient.getInstance()),
             SettingsSetup.getInstance(myUnits)
@@ -68,9 +69,9 @@ class HomeFragment : Fragment() {
             Glide.with(requireContext()).load(iconUrl).into(binding.weatherIcon)
         }
 
-        homeViewModel.currentWeather.observe(viewLifecycleOwner) {
-
-
+        homeViewModel.hourlyWeather.observe(viewLifecycleOwner){
+            homeAdapter = HomeAdapter(requireContext(),it,this)
+            binding.hourlyRecView.adapter = homeAdapter
         }
         //val textView: TextView = binding.textHome
 //        homeViewModel.text.observe(viewLifecycleOwner) {
