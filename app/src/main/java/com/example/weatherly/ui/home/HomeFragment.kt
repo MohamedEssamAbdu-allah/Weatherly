@@ -32,7 +32,7 @@ class HomeFragment : Fragment(),HomeClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        myUnits = Units.METRIC
+        myUnits = Units.STANDARD
         homeViewModelFactory = HomeViewModelFactory(
             Repository.getInstance(RetrofitClient.getInstance()),
             SettingsSetup.getInstance(myUnits)
@@ -56,17 +56,19 @@ class HomeFragment : Fragment(),HomeClickListener {
 
         homeViewModel.currentWeather.observe(viewLifecycleOwner) {
             val iconUrl = "https://openweathermap.org/img/wn/${it.weather.get(0).icon}.png"
-            binding.temperatureTv.text = getString(
-                R.string.temperature_tv,
-                it.temp,
-                SettingsSetup.getInstance().degreeSymbol
-            )
-            binding.humidityTv.text = getString(R.string.humidity_tv, it.humidity, "%")
-            binding.cloudTv.text = getString(R.string.cloud_tv, it.clouds, "%")
-            binding.pressureTv.text = getString(R.string.pressure_tv, it.pressure, " hPa")
-            binding.windSpeedTv.text = getString(R.string.windSpeed_tv, it.wind_speed, SettingsSetup.getInstance().windSpeed)
-            binding.wetherDesc.text = it.weather.get(0).description
-            Glide.with(requireContext()).load(iconUrl).into(binding.weatherIcon)
+//            binding.temperatureTv.text = getString(
+//                R.string.temperature_tv,
+//                it.temp,
+//                SettingsSetup.getInstance().degreeSymbol
+//            )
+//            binding.humidityTv.text = getString(R.string.humidity_tv, it.humidity, "%")
+//            binding.cloudTv.text = getString(R.string.cloud_tv, it.clouds, "%")
+//            binding.pressureTv.text = getString(R.string.pressure_tv, it.pressure, " hPa")
+//            binding.windSpeedTv.text = getString(R.string.windSpeed_tv, it.wind_speed, SettingsSetup.getInstance().windSpeed)
+//            binding.wetherDesc.text = it.weather.get(0).description
+//            Glide.with(requireContext()).load(iconUrl).into(binding.weatherIcon)
+            binding.currentTime = it
+            binding.settings = SettingsSetup.getInstance()
         }
 
         homeViewModel.hourlyWeather.observe(viewLifecycleOwner){
