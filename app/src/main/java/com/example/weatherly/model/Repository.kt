@@ -22,4 +22,8 @@ class Repository private constructor(private val remoteSource: RemoteSource) : R
     override suspend fun getHourlyWeatherData(units: String): List<Hourly> {
         return remoteSource.getHourlyWeather(31.104994885376325,29.775266209000975, units, Constants.API_KEY)
     }
+
+    override suspend fun getWeatherModelData(units: String): WeatherModel {
+        return remoteSource.getWeatherModel(31.104994885376325,29.775266209000975, units, Constants.API_KEY)
+    }
 }

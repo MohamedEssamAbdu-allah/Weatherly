@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.weatherly.databinding.HourlyCardviewBinding
 import com.example.weatherly.model.Hourly
-import java.text.SimpleDateFormat
+import com.example.weatherly.utils.SettingsSetup
+import java.text.DateFormat
 import java.util.*
 
 class HomeAdapter(
@@ -32,14 +33,16 @@ class HomeAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val date = Date(hours[position].dt.toLong() * 1000) // Create a new Date object with the Unix timestamp in milliseconds
-        val dateFormat = SimpleDateFormat("HH", Locale.getDefault()) // Define the date format
+        val date = Date(hours[position].dt.toLong() * 1000)
+        val dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT)
         val formattedDate = dateFormat.format(date)
         val hour = hours[position]
         val iconUrl = "https://openweathermap.org/img/wn/${hour.weather.get(0).icon}.png"
-//        Glide.with(requireContext()).load(iconUrl).into(binding.weatherIcon)
-        holder.binding.hourTv.text = formattedDate
-        holder.binding.hourTempTv.text = hours[position].temp.toString()
+        holder.binding.time = formattedDate
+        holder.binding.hourlyObj = hours[position]
+        holder.binding.settings = SettingsSetup.getInstance()
+        holder.binding.action = clickListener
         Glide.with(context).load(iconUrl).into(holder.binding.hourIcon)
+
     }
 }

@@ -2,6 +2,7 @@ package com.example.weatherly.network
 
 import com.example.weatherly.model.Current
 import com.example.weatherly.model.Hourly
+import com.example.weatherly.model.WeatherModel
 
 
 interface RemoteSource {
@@ -18,5 +19,12 @@ interface RemoteSource {
         units: String,
         apiKey: String
     ): List<Hourly>
+
+    suspend fun getWeatherModel(
+        lat: Double,
+        lon: Double,
+        units: String,
+        apiKey: String
+    ) : WeatherModel
 
 }

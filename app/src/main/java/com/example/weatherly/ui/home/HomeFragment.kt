@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
-import com.example.weatherly.R
 import com.example.weatherly.databinding.FragmentHomeBinding
+import com.example.weatherly.model.Hourly
 import com.example.weatherly.model.Repository
-import com.example.weatherly.utils.Units
+import com.example.weatherly.model.WeatherDetails
 import com.example.weatherly.network.RetrofitClient
 import com.example.weatherly.utils.SettingsSetup
+import com.example.weatherly.utils.Units
 
 
 class HomeFragment : Fragment(),HomeClickListener {
@@ -32,7 +33,7 @@ class HomeFragment : Fragment(),HomeClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        myUnits = Units.STANDARD
+        myUnits = Units.METRIC
         homeViewModelFactory = HomeViewModelFactory(
             Repository.getInstance(RetrofitClient.getInstance()),
             SettingsSetup.getInstance(myUnits)
@@ -45,48 +46,19 @@ class HomeFragment : Fragment(),HomeClickListener {
             Navigation.findNavController(root)
                 .navigate(HomeFragmentDirections.actionNavHomeToWeekFragment())
         }
-
-
-        homeViewModel.time.observe(viewLifecycleOwner) {
-            binding.timeTv.text = it
-        }
-        homeViewModel.date.observe(viewLifecycleOwner) {
-            binding.dateTv.text = it
-        }
+        binding.dateTv.text = WeatherDetails.getDate()
 
         homeViewModel.currentWeather.observe(viewLifecycleOwner) {
             val iconUrl = "https://openweathermap.org/img/wn/${it.weather.get(0).icon}.png"
-//            binding.temperatureTv.text = getString(
-//                R.string.temperature_tv,
-//                it.temp,
-//                SettingsSetup.getInstance().degreeSymbol
-//            )
-//            binding.humidityTv.text = getString(R.string.humidity_tv, it.humidity, "%")
-//            binding.cloudTv.text = getString(R.string.cloud_tv, it.clouds, "%")
-//            binding.pressureTv.text = getString(R.string.pressure_tv, it.pressure, " hPa")
-//            binding.windSpeedTv.text = getString(R.string.windSpeed_tv, it.wind_speed, SettingsSetup.getInstance().windSpeed)
-//            binding.wetherDesc.text = it.weather.get(0).description
-//            Glide.with(requireContext()).load(iconUrl).into(binding.weatherIcon)
-            binding.currentTime = it
+            Glide.with(requireContext()).load(iconUrl).into(binding.weatherIcon)
+            binding.weatherDetailsBinding = WeatherDetails.initWeatherData(it)
             binding.settings = SettingsSetup.getInstance()
         }
 
-        homeViewModel.hourlyWeather.observe(viewLifecycleOwner){
-            homeAdapter = HomeAdapter(requireContext(),it,this)
-            binding.hourlyRecView.adapter = homeAdapter
+        homeViewModel.hourlyWeather.observe(viewLifecycleOwner) {
+            homeAdapter = HomeAdapter(requireContext(), it, this)
+            binding.hourlyAdapterBinding = homeAdapter
         }
-        //val textView: TextView = binding.textHome
-//        homeViewModel.text.observe(viewLifecycleOwner) {
-//            binding.timeTv.text = it
-//        }
-
-        //unixTimeStamp Conversion
-//        val unixTimestamp = 1679717068L // Unix timestamp in seconds
-//        val date = Date(unixTimestamp * 1000) // Create a new Date object with the Unix timestamp in milliseconds
-//        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()) // Define the date format
-//        val formattedDate = dateFormat.format(date)
-//        println(formattedDate)
-
 
         return root
     }
@@ -94,5 +66,11 @@ class HomeFragment : Fragment(),HomeClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onHourClicked(hourly: Hourly) {
+        val iconUrl = "https://openweathermap.org/img/wn/${hourly.weather.get(0).icon}.png"
+        Glide.with(requireContext()).load(iconUrl).into(binding.weatherIcon)
+        binding.weatherDetailsBinding = WeatherDetails.updateWeatherHourly(hourly)
     }
 }

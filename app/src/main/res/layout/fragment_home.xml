@@ -13,6 +13,15 @@
         <variable
             name="settings"
             type="com.example.weatherly.utils.SettingsSetup" />
+        <variable
+            name="hourlyAdapterBinding"
+            type="com.example.weatherly.ui.home.HomeAdapter" />
+        <variable
+            name="homeViewModel"
+            type="com.example.weatherly.ui.home.HomeViewModel" />
+        <variable
+            name="weatherDetailsBinding"
+            type="com.example.weatherly.model.WeatherDetails" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,9 +60,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="19dp"
-                    android:text="@{currentTime.weather.get(0).description}"
+                    android:text="@{weatherDetailsBinding.description}"
+                    tools:text="Mostly Sunny"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -63,8 +73,8 @@
 
                     <ImageView
                         android:id="@+id/weather_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="90dp"
                         android:layout_marginStart="65dp"
                         android:src="@drawable/test_icon" />
 
@@ -73,7 +83,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="@{currentTime.temp + settings.degreeSymbol}"
+                        android:text="@{String.valueOf(weatherDetailsBinding.temp) + settings.degreeSymbol}"
+                        tools:text="15C"
                         android:textColor="@color/white"
                         android:textSize="48sp"
                         android:textStyle="bold" />
@@ -99,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="42dp"
-                        android:text="10:00"
+                        android:text="@{weatherDetailsBinding.dt}"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -131,7 +142,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="@{String.valueOf(currentTime.humidity)+'%'}"
+                            android:text="@{String.valueOf(weatherDetailsBinding.humidity)+'%'}"
+                            tools:text="7%"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -165,7 +177,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="@{String.valueOf(currentTime.wind_speed) + ' ' +settings.windSpeed}"
+                            android:text="@{String.valueOf(weatherDetailsBinding.windSpeed) + ' ' +settings.windSpeedUnit}"
+                            tools:text ="9m/hr"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -200,7 +213,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="18dp"
-                            android:text="@{String.valueOf(currentTime.clouds) + '%'}"
+                            android:text="@{String.valueOf(weatherDetailsBinding.clouds) + '%'}"
+                            tools:text="5%"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -234,7 +248,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="@{currentTime.pressure + ` hPar`}"
+                            android:text="@{weatherDetailsBinding.pressure + ` hPar`}"
+                            tools:text ="100 hPar"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -290,6 +305,7 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:adapter="@{hourlyAdapterBinding}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
