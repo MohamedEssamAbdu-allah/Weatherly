@@ -12,7 +12,7 @@ class SettingsSetup private constructor(units: Units) {
         else -> Constants.UNITS_STANDARD
     }
 
-    val windSpeed = when(units){
+    val windSpeedUnit = when(units){
         Units.METRIC -> Constants.METER_SEC
         Units.IMPERIAL -> Constants.MILES_HOUR
         else -> Constants.METER_SEC

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="dayTime"
+            type="String" />
+        <variable
+            name="dayObj"
+            type="com.example.weatherly.model.Daily" />
+        <variable
+            name="dayAction"
+            type="com.example.weatherly.ui.week.DayClickListener" />
+        <variable
+            name="daySettings"
+            type="com.example.weatherly.utils.SettingsSetup" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:cardBackgroundColor="#5945A5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{() -> dayAction.onDayClicked(dayObj)}">
+
+            <TextView
+                android:id="@+id/day_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:text="@{dayTime}"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="Monday" />
+
+            <ImageView
+                android:id="@+id/dayIcon"
+                android:layout_width="83dp"
+                android:layout_height="59dp"
+                android:layout_gravity="clip_horizontal"
+                android:layout_weight="1"
+                tools:src="@drawable/test_icon" />
+
+            <TextView
+                android:id="@+id/maxTemp_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@{String.valueOf(dayObj.temp.max) + daySettings.degreeSymbol}"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                tools:text="23C" />
+
+            <TextView
+                android:id="@+id/minTemp_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@{String.valueOf(dayObj.temp.min) + daySettings.degreeSymbol}"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                tools:text="15C" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
