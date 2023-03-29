@@ -1,6 +1,7 @@
 package com.example.weatherly.model
 
 import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 open class WeatherDetails {
@@ -14,18 +15,16 @@ open class WeatherDetails {
     var description: String = ""
 
     companion object {
-        fun getDate() : String{
-            val dateFormat = DateFormat.getDateInstance(DateFormat.LONG)
-            val calendar = Calendar.getInstance()
-            val currentTime = calendar.time
-            return dateFormat.format(currentTime)
+        fun getDate(timeStamp :Long): String {
+            val date = Date(timeStamp *1000)
+            val dayFormat = SimpleDateFormat("EEEE",Locale.getDefault())
+            return dayFormat.format(date)
         }
 
         fun updateWeatherHourly(hourly: Hourly): WeatherDetails {
             val dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT)
-            val formattedDate = dateFormat.format(hourly.dt.toLong()*1000)
+            val formattedDate = dateFormat.format(hourly.dt.toLong() * 1000)
             val weatherDetails = WeatherDetails()
-            weatherDetails.temp = hourly.temp
             weatherDetails.temp = hourly.temp
             weatherDetails.dt = formattedDate
             weatherDetails.humidity = hourly.humidity
@@ -36,10 +35,10 @@ open class WeatherDetails {
             return weatherDetails
         }
 
-        fun initWeatherData(current: Current): WeatherDetails {
+        fun getTodayWeather(current: Current): WeatherDetails {
             val dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT)
-            val formattedDate = dateFormat.format(current.dt.toLong()*1000)
             val weatherDetails = WeatherDetails()
+            val formattedDate = dateFormat.format(current.dt.toLong() * 1000)
             weatherDetails.temp = current.temp
             weatherDetails.dt = formattedDate
             weatherDetails.humidity = current.humidity
@@ -47,6 +46,20 @@ open class WeatherDetails {
             weatherDetails.pressure = current.pressure
             weatherDetails.windSpeed = current.wind_speed
             weatherDetails.description = current.weather[0].description
+            return weatherDetails
+        }
+
+        fun getWeekWeather(daily: Daily): WeatherDetails {
+            val dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT)
+            val weatherDetails = WeatherDetails()
+            val formattedDate = dateFormat.format(daily.dt.toLong() * 1000)
+            weatherDetails.temp = daily.temp.max
+            weatherDetails.dt = formattedDate
+            weatherDetails.humidity = daily.humidity
+            weatherDetails.weather = daily.weather
+            weatherDetails.pressure = daily.pressure
+            weatherDetails.windSpeed = daily.wind_speed
+            weatherDetails.description = daily.weather[0].description
             return weatherDetails
         }
     }

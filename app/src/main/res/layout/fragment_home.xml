@@ -102,7 +102,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="60dp"
-                        android:text="Staurday, 10 February "
+                        android:layout_weight="1"
+                        android:text="Monday "
                         android:textColor="@color/white" />
 
                     <TextView
@@ -110,8 +111,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="42dp"
+                        android:layout_weight="1"
                         android:text="@{weatherDetailsBinding.dt}"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        tools:text="12:00 AM" />
                 </LinearLayout>
 
                 <androidx.cardview.widget.CardView
@@ -167,9 +170,10 @@
                             android:id="@+id/wind_icon"
                             android:layout_width="59dp"
                             android:layout_height="46dp"
-                            android:layout_marginStart="100dp"
+                            android:layout_marginEnd="64dp"
                             android:src="@drawable/wind2"
-                            app:layout_constraintStart_toEndOf="@+id/humidity_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/humidity_icon"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/humidity_icon" />
 
                         <TextView

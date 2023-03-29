@@ -8,4 +8,4 @@ data class WeatherModel(
     val lon: Double,
     val timezone: String,
     val timezone_offset: Int
-)
+) : java.io.Serializable

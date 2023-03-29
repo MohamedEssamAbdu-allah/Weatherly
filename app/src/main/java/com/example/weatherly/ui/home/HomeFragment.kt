@@ -21,8 +21,7 @@ class HomeFragment : Fragment(),HomeClickListener {
 
     private var _binding: FragmentHomeBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+
     private val binding get() = _binding!!
     lateinit var homeViewModelFactory: HomeViewModelFactory
     lateinit var myUnits: Units
@@ -33,7 +32,7 @@ class HomeFragment : Fragment(),HomeClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        myUnits = Units.METRIC
+        myUnits = Units.IMPERIAL
         homeViewModelFactory = HomeViewModelFactory(
             Repository.getInstance(RetrofitClient.getInstance()),
             SettingsSetup.getInstance(myUnits)
@@ -46,17 +45,15 @@ class HomeFragment : Fragment(),HomeClickListener {
             Navigation.findNavController(root)
                 .navigate(HomeFragmentDirections.actionNavHomeToWeekFragment())
         }
-        binding.dateTv.text = WeatherDetails.getDate()
 
-        homeViewModel.currentWeather.observe(viewLifecycleOwner) {
-            val iconUrl = "https://openweathermap.org/img/wn/${it.weather.get(0).icon}.png"
-            Glide.with(requireContext()).load(iconUrl).into(binding.weatherIcon)
-            binding.weatherDetailsBinding = WeatherDetails.initWeatherData(it)
+
+        homeViewModel.weatherDetails.observe(viewLifecycleOwner){
+            val currentIconUrl = "https://openweathermap.org/img/wn/${it.current.weather.get(0).icon}.png"
+            Glide.with(requireContext()).load(currentIconUrl).into(binding.weatherIcon)
+            binding.weatherDetailsBinding = WeatherDetails.getTodayWeather(it.current)
+            binding.dateTv.text = WeatherDetails.getDate(it.current.dt.toLong())
             binding.settings = SettingsSetup.getInstance()
-        }
-
-        homeViewModel.hourlyWeather.observe(viewLifecycleOwner) {
-            homeAdapter = HomeAdapter(requireContext(), it, this)
+            homeAdapter = HomeAdapter(requireContext(),it.hourly,this)
             binding.hourlyAdapterBinding = homeAdapter
         }
 

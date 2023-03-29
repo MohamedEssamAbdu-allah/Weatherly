@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="weatherDayDetailsBinding"
+            type="com.example.weatherly.model.WeatherDetails" />
+        <variable
+            name="daySettings"
+            type="com.example.weatherly.utils.SettingsSetup" />
+        <variable
+            name="dailyAdapterBinding"
+            type="com.example.weatherly.ui.week.WeekAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,27 +59,32 @@
                         android:layout_height="match_parent">
 
                         <ImageView
-                            android:id="@+id/weather_icon2"
+                            android:id="@+id/day_weather_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="56dp"
+                            android:layout_marginStart="50dp"
                             android:layout_marginTop="28dp"
+                            android:layout_marginEnd="40dp"
                             android:src="@drawable/test_icon"
+                            app:layout_constraintEnd_toStartOf="@+id/dayTemperature_tv"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/stored_date_tv" />
+                            app:layout_constraintTop_toBottomOf="@+id/day_date_tv" />
 
                         <TextView
-                            android:id="@+id/temperature_tv2"
+                            android:id="@+id/dayTemperature_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="33dp"
-                            android:layout_marginTop="38dp"
-                            android:text="23 \u2103"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginEnd="60dp"
+                            android:text="@{String.valueOf(weatherDayDetailsBinding.temp) + daySettings.degreeSymbol}"
                             android:textColor="@color/white"
-                            android:textSize="60sp"
+                            android:textSize="50sp"
                             android:textStyle="bold"
-                            app:layout_constraintStart_toEndOf="@+id/weather_icon2"
-                            app:layout_constraintTop_toBottomOf="@+id/stored_time_tv" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/day_weather_icon"
+                            app:layout_constraintTop_toBottomOf="@+id/day_time_tv"
+                            tools:text="235C" />
 
                         <TextView
                             android:id="@+id/stored_loc_tv"
@@ -87,38 +100,40 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/stored_desc_tv"
+                            android:id="@+id/day_desc_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="19dp"
-                            android:text="Mostly Sunny"
+                            android:text="@{weatherDayDetailsBinding.description}"
                             android:textColor="@color/white"
                             android:textSize="16sp"
+                            tools:text = "clear sky"
                             app:layout_constraintEnd_toEndOf="@+id/stored_loc_tv"
                             app:layout_constraintStart_toStartOf="@+id/stored_loc_tv"
                             app:layout_constraintTop_toBottomOf="@+id/stored_loc_tv" />
 
                         <TextView
-                            android:id="@+id/stored_date_tv"
+                            android:id="@+id/day_date_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="30dp"
+                            android:layout_marginStart="70dp"
                             android:layout_marginTop="40dp"
-                            android:text="Staurday, 10 February "
+                            android:text="Monday "
                             android:textColor="@color/white"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/stored_desc_tv" />
+                            app:layout_constraintTop_toBottomOf="@+id/day_desc_tv" />
 
                         <TextView
-                            android:id="@+id/stored_time_tv"
+                            android:id="@+id/day_time_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="94dp"
-                            android:text="10:00"
+                            android:layout_marginStart="100dp"
+                            android:text="@{weatherDayDetailsBinding.dt}"
+                            tools:text = "10:00 Am"
                             android:textColor="@color/white"
-                            app:layout_constraintBottom_toBottomOf="@+id/stored_date_tv"
-                            app:layout_constraintStart_toEndOf="@+id/stored_date_tv"
-                            app:layout_constraintTop_toTopOf="@+id/stored_date_tv" />
+                            app:layout_constraintBottom_toBottomOf="@+id/day_date_tv"
+                            app:layout_constraintStart_toEndOf="@+id/day_date_tv"
+                            app:layout_constraintTop_toTopOf="@+id/day_date_tv" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -145,11 +160,11 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/humidity_tv"
+                            android:id="@+id/day_humidity_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="30%"
+                            android:text="@{String.valueOf(weatherDayDetailsBinding.humidity)+'%'}"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -165,25 +180,26 @@
                             android:layout_marginTop="10dp"
                             android:text="@string/humidity_label"
                             android:textColor="@color/white"
-                            app:layout_constraintEnd_toEndOf="@+id/humidity_tv"
-                            app:layout_constraintStart_toStartOf="@+id/humidity_tv"
-                            app:layout_constraintTop_toBottomOf="@+id/humidity_tv" />
+                            app:layout_constraintEnd_toEndOf="@+id/day_humidity_tv"
+                            app:layout_constraintStart_toStartOf="@+id/day_humidity_tv"
+                            app:layout_constraintTop_toBottomOf="@+id/day_humidity_tv" />
 
                         <ImageView
                             android:id="@+id/wind_icon"
                             android:layout_width="59dp"
                             android:layout_height="46dp"
-                            android:layout_marginStart="100dp"
+                            android:layout_marginEnd="64dp"
                             android:src="@drawable/wind2"
-                            app:layout_constraintStart_toEndOf="@+id/humidity_icon"
+                            app:layout_constraintBottom_toBottomOf="@+id/humidity_icon"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/humidity_icon" />
 
                         <TextView
-                            android:id="@+id/windSpeed_tv"
+                            android:id="@+id/day_windSpeed_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="9Km/h"
+                            android:text="@{String.valueOf(weatherDayDetailsBinding.windSpeed) + ' ' +daySettings.windSpeedUnit}"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -198,9 +214,9 @@
                             android:layout_marginTop="10dp"
                             android:text="@string/wind_label"
                             android:textColor="@color/white"
-                            app:layout_constraintEnd_toEndOf="@+id/windSpeed_tv"
-                            app:layout_constraintStart_toStartOf="@+id/windSpeed_tv"
-                            app:layout_constraintTop_toBottomOf="@+id/windSpeed_tv" />
+                            app:layout_constraintEnd_toEndOf="@+id/day_windSpeed_tv"
+                            app:layout_constraintStart_toStartOf="@+id/day_windSpeed_tv"
+                            app:layout_constraintTop_toBottomOf="@+id/day_windSpeed_tv" />
 
                         <ImageView
                             android:id="@+id/cloud_icon"
@@ -214,11 +230,11 @@
                             app:layout_constraintTop_toBottomOf="@+id/humidity_label" />
 
                         <TextView
-                            android:id="@+id/cloud_tv"
+                            android:id="@+id/day_cloud_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="100%"
+                            android:text="@{String.valueOf(weatherDayDetailsBinding.clouds) + '%'}"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -233,9 +249,9 @@
                             android:layout_marginTop="10dp"
                             android:text="@string/cloud_label"
                             android:textColor="@color/white"
-                            app:layout_constraintEnd_toEndOf="@+id/cloud_tv"
-                            app:layout_constraintStart_toStartOf="@+id/cloud_tv"
-                            app:layout_constraintTop_toBottomOf="@+id/cloud_tv" />
+                            app:layout_constraintEnd_toEndOf="@+id/day_cloud_tv"
+                            app:layout_constraintStart_toStartOf="@+id/day_cloud_tv"
+                            app:layout_constraintTop_toBottomOf="@+id/day_cloud_tv" />
 
                         <ImageView
                             android:id="@+id/pressure_icon"
@@ -248,11 +264,11 @@
                             app:layout_constraintTop_toTopOf="@+id/cloud_icon" />
 
                         <TextView
-                            android:id="@+id/pressure_tv"
+                            android:id="@+id/day_pressure_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="1005mbar"
+                            android:text="@{weatherDayDetailsBinding.pressure + ` hPar`}"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -267,16 +283,28 @@
                             android:layout_marginTop="10dp"
                             android:text="@string/pressure_label"
                             android:textColor="@color/white"
-                            app:layout_constraintEnd_toEndOf="@+id/pressure_tv"
-                            app:layout_constraintStart_toStartOf="@+id/pressure_tv"
-                            app:layout_constraintTop_toBottomOf="@+id/pressure_tv" />
+                            app:layout_constraintEnd_toEndOf="@+id/day_pressure_tv"
+                            app:layout_constraintStart_toStartOf="@+id/day_pressure_tv"
+                            app:layout_constraintTop_toBottomOf="@+id/day_pressure_tv" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
-                <androidx.recyclerview.widget.RecyclerView
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp" />
+                    android:layout_height="500dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adapter="@{dailyAdapterBinding}"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
