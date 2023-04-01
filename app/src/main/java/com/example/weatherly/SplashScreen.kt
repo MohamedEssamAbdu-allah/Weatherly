@@ -4,12 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.weatherly.databinding.ActivitySplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {
@@ -22,8 +18,6 @@ class SplashScreen : AppCompatActivity() {
 
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //setSupportActionBar(binding.toolbar)
         val handler = Handler(Looper.getMainLooper())
 
         handler.postDelayed({
@@ -34,3 +28,31 @@ class SplashScreen : AppCompatActivity() {
     }
 
 }
+
+/*
+// Create a LocationManager object
+val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+// Check if location services are enabled
+if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+    && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+
+    // Request location updates
+    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, object : LocationListener {
+        override fun onLocationChanged(location: Location?) {
+            // Handle location change
+            val latitude = location?.latitude
+            val longitude = location?.longitude
+            Log.d("Location", "Latitude: $latitude, Longitude: $longitude")
+
+            // Stop listening for location updates after first update
+            locationManager.removeUpdates(this)
+        }
+
+        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+        override fun onProviderEnabled(provider: String?) {}
+        override fun onProviderDisabled(provider: String?) {}
+    })
+}
+ */
+

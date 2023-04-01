@@ -30,8 +30,8 @@
             android:id="@+id/hourly_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:onClick="@{() -> action.onHourClicked(hourlyObj)}">
+            android:onClick="@{() -> action.onHourClicked(hourlyObj)}"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/hour_tv"

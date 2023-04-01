@@ -1,31 +1,31 @@
 package com.example.weatherly.ui.week
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherly.model.RepositoryInterface
-import com.example.weatherly.model.WeatherModel
+import com.example.weatherly.utils.ApiState
 import com.example.weatherly.utils.SettingsSetup
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class WeekViewModel(
     private val repositoryInterface: RepositoryInterface,
     private val settingsSetup: SettingsSetup
 ) : ViewModel() {
-
-    private val _weatherModel = MutableLiveData<WeatherModel>().apply {
+    val stateFlow = MutableStateFlow<ApiState>(ApiState.Loading)
+    init {
+        getStateFlowProducts()
+    }
+    private fun getStateFlowProducts() {
         viewModelScope.launch(Dispatchers.IO) {
-            val data = repositoryInterface.getWeatherModelData(settingsSetup.unit)
-            withContext(Dispatchers.Main) {
-                value = data
-            }
+            repositoryInterface.getFlowWeatherModelData(settingsSetup.unit)
+                .catch { e -> stateFlow.value = ApiState.Failure(e) }.collect { data ->
+                    stateFlow.value = ApiState.Success(data)
+                }
         }
     }
-
-    val weatherDetails: LiveData<WeatherModel> = _weatherModel
 
 
 }
