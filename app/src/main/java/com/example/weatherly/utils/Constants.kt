@@ -10,6 +10,7 @@ object Constants {
     const val UNITS_STANDARD = "standard"
     const val METER_SEC = "metre/sec"
     const val MILES_HOUR = "miles/hr"
+    const val MyPermission = 150
 }
 
 enum class Units {
