@@ -1,5 +1,6 @@
 package com.example.weatherly.ui.home
 
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,25 +17,27 @@ import com.example.weatherly.model.Repository
 import com.example.weatherly.model.WeatherDetails
 import com.example.weatherly.network.RetrofitClient
 import com.example.weatherly.utils.ApiState
+import com.example.weatherly.utils.Location
 import com.example.weatherly.utils.SettingsSetup
 import com.example.weatherly.utils.Units
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class HomeFragment : Fragment(), HomeClickListener {
 
     private var _binding: FragmentHomeBinding? = null
 
-
+    lateinit var geoCoder : Geocoder
     private val binding get() = _binding!!
     lateinit var homeViewModelFactory: HomeViewModelFactory
     lateinit var myUnits: Units
     lateinit var homeAdapter: HomeAdapter
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+
         myUnits = Units.METRIC
         homeViewModelFactory = HomeViewModelFactory(
             Repository.getInstance(RetrofitClient.getInstance()), SettingsSetup.getInstance(myUnits)
@@ -89,8 +92,11 @@ class HomeFragment : Fragment(), HomeClickListener {
             apiState.weatherModel.current.weather.get(0).icon
         }.png"
         Glide.with(requireContext()).load(currentIconUrl).into(binding.weatherIcon)
+        geoCoder = Geocoder(requireContext(), Locale.getDefault())
+       val addresses = geoCoder.getFromLocation(Location.lat,Location.lon,1)
+
         binding.weatherDetailsBinding =
-            WeatherDetails.getTodayWeather(apiState.weatherModel.current)
+            WeatherDetails.getTodayWeather(apiState.weatherModel.current,addresses!!.get(0).adminArea )
         binding.dateTv.text = WeatherDetails.getDate(apiState.weatherModel.current.dt.toLong())
         binding.settings = SettingsSetup.getInstance()
         homeAdapter = HomeAdapter(

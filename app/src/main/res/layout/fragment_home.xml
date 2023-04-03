@@ -50,7 +50,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:text="Cairo"
+                    android:text="@{weatherDetailsBinding.city}"
+                    tools:text = "Cairo"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     android:textStyle="bold" />

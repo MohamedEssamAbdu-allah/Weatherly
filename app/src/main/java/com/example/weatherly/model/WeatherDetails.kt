@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 open class WeatherDetails {
+    var city :String =""
     var clouds: Int = 0
     var dt: String = ""
     var humidity: Int = 0
@@ -35,10 +36,11 @@ open class WeatherDetails {
             return weatherDetails
         }
 
-        fun getTodayWeather(current: Current): WeatherDetails {
+        fun getTodayWeather(current: Current,city :String): WeatherDetails {
             val dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT)
             val weatherDetails = WeatherDetails()
             val formattedDate = dateFormat.format(current.dt.toLong() * 1000)
+            weatherDetails.city = city
             weatherDetails.temp = current.temp
             weatherDetails.dt = formattedDate
             weatherDetails.humidity = current.humidity

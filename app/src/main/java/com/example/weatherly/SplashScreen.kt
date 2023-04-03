@@ -3,6 +3,7 @@ package com.example.weatherly
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.weatherly.databinding.ActivitySplashScreenBinding
 import com.example.weatherly.utils.Constants
+import com.example.weatherly.utils.Location
 import com.example.weatherly.utils.MyDialog
 import com.google.android.gms.location.*
 
@@ -21,8 +23,6 @@ class SplashScreen : AppCompatActivity() {
     //private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivitySplashScreenBinding
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
-    private lateinit var locationCallback: LocationCallback
-    private lateinit var locationRequest: LocationRequest
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,13 +30,7 @@ class SplashScreen : AppCompatActivity() {
         setContentView(binding.root)
         fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
-        val handler = Handler(Looper.getMainLooper())
-
-//        handler.postDelayed({
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }, 3000)
+        Handler(Looper.getMainLooper())
     }
 
     override fun onResume() {
@@ -77,7 +71,7 @@ class SplashScreen : AppCompatActivity() {
                 requestNewLocationData()
             } else {
                 val myDialog = MyDialog()
-                myDialog.show(supportFragmentManager,"GPS is off")
+                myDialog.show(supportFragmentManager,"GPS IS OFF")
             }
         } else{
             requestPermissions()
@@ -87,9 +81,11 @@ class SplashScreen : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     fun requestNewLocationData(){
-        val myLocationRequest = LocationRequest()
-        myLocationRequest.priority =LocationRequest.PRIORITY_HIGH_ACCURACY
-        myLocationRequest.interval =0
+       val myLocationRequest = LocationRequest.create().apply {
+            interval = 1000
+            maxWaitTime = 3000
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
         fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationProvider.requestLocationUpdates(myLocationRequest,myLocationCallback, Looper.myLooper())
     }
@@ -99,6 +95,10 @@ class SplashScreen : AppCompatActivity() {
             val myLastLocation = locationResult.lastLocation
             Log.i("latitutde",myLastLocation?.latitude.toString())
             Log.i("Longititude",myLastLocation?.longitude.toString())
+            val intent = Intent(this@SplashScreen, MainActivity::class.java)
+            Location.lat = myLastLocation?.latitude!!
+            Location.lon = myLastLocation.longitude
+            startActivity(intent)
         }
     }
 
