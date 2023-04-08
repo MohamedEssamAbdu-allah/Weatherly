@@ -18,6 +18,10 @@ class Repository private constructor(private val remoteSource: RemoteSource) : R
         }
     }
 
+    fun makePref(){
+
+    }
+
     override suspend fun getWeatherData(units:String): Current {
        return remoteSource.getCurrentWeather(31.104994885376325,29.775266209000975, units, Constants.API_KEY)
     }
@@ -30,7 +34,7 @@ class Repository private constructor(private val remoteSource: RemoteSource) : R
         return remoteSource.getWeatherModel(31.104994885376325,29.775266209000975, units, Constants.API_KEY)
     }
 
-    override  fun getFlowWeatherModelData(units: String): Flow<WeatherModel> {
+    override  fun getFlowWeatherModelData(units: String?): Flow<WeatherModel> {
         return flow { emit(remoteSource.getWeatherModel(Location.lat,Location.lon, units, Constants.API_KEY)) }
     }
 }

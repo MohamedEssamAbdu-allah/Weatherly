@@ -30,7 +30,7 @@ class RetrofitClient private constructor() : RemoteSource {
     override suspend fun getWeatherModel(
         lat: Double,
         lon: Double,
-        units: String,
+        units: String?,
         apiKey: String
     ): WeatherModel {
         return weatherService.getWeather(lat,lon,units,apiKey)

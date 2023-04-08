@@ -28,19 +28,15 @@ import java.util.*
 class HomeFragment : Fragment(), HomeClickListener {
 
     private var _binding: FragmentHomeBinding? = null
-
     lateinit var geoCoder : Geocoder
     private val binding get() = _binding!!
     lateinit var homeViewModelFactory: HomeViewModelFactory
-    lateinit var myUnits: Units
     lateinit var homeAdapter: HomeAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
-        myUnits = Units.METRIC
         homeViewModelFactory = HomeViewModelFactory(
-            Repository.getInstance(RetrofitClient.getInstance()), SettingsSetup.getInstance(myUnits)
+            Repository.getInstance(RetrofitClient.getInstance()), SettingsSetup.getInstance()
         )
         val homeViewModel =
             ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
@@ -94,7 +90,6 @@ class HomeFragment : Fragment(), HomeClickListener {
         Glide.with(requireContext()).load(currentIconUrl).into(binding.weatherIcon)
         geoCoder = Geocoder(requireContext(), Locale.getDefault())
        val addresses = geoCoder.getFromLocation(Location.lat,Location.lon,1)
-
         binding.weatherDetailsBinding =
             WeatherDetails.getTodayWeather(apiState.weatherModel.current,addresses!!.get(0).adminArea )
         binding.dateTv.text = WeatherDetails.getDate(apiState.weatherModel.current.dt.toLong())

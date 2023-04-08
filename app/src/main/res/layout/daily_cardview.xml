@@ -24,57 +24,57 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        app:cardBackgroundColor="#5945A5">
+        app:cardBackgroundColor="#1F1B24">
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:onClick="@{() -> dayAction.onDayClicked(dayObj)}">-->
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:onClick="@{() -> dayAction.onDayClicked(dayObj)}">-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/day_tv"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="@{dayTime}"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="20sp"-->
-<!--                android:textStyle="bold"-->
-<!--                tools:text="Wednesday" />-->
+        <!--            <TextView-->
+        <!--                android:id="@+id/day_tv"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_marginStart="20dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="@{dayTime}"-->
+        <!--                android:textColor="@color/white"-->
+        <!--                android:textSize="20sp"-->
+        <!--                android:textStyle="bold"-->
+        <!--                tools:text="Wednesday" />-->
 
-<!--            <ImageView-->
-<!--                android:id="@+id/dayIcon"-->
-<!--                android:layout_width="83dp"-->
-<!--                android:layout_height="59dp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_weight="1"-->
-<!--                android:foregroundGravity="center"-->
-<!--                tools:src="@drawable/test_icon" />-->
+        <!--            <ImageView-->
+        <!--                android:id="@+id/dayIcon"-->
+        <!--                android:layout_width="83dp"-->
+        <!--                android:layout_height="59dp"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:foregroundGravity="center"-->
+        <!--                tools:src="@drawable/test_icon" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/maxTemp_tv"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="@{String.valueOf(dayObj.temp.max) + daySettings.degreeSymbol}"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="20sp"-->
-<!--                tools:text="23C" />-->
+        <!--            <TextView-->
+        <!--                android:id="@+id/maxTemp_tv"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="@{String.valueOf(dayObj.temp.max) + daySettings.degreeSymbol}"-->
+        <!--                android:textColor="@color/white"-->
+        <!--                android:textSize="20sp"-->
+        <!--                tools:text="23C" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/minTemp_tv"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="@{String.valueOf(dayObj.temp.min) + daySettings.degreeSymbol}"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="20sp"-->
-<!--                tools:text="15C" />-->
-<!--        </LinearLayout>-->
+        <!--            <TextView-->
+        <!--                android:id="@+id/minTemp_tv"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="@{String.valueOf(dayObj.temp.min) + daySettings.degreeSymbol}"-->
+        <!--                android:textColor="@color/white"-->
+        <!--                android:textSize="20sp"-->
+        <!--                tools:text="15C" />-->
+        <!--        </LinearLayout>-->
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

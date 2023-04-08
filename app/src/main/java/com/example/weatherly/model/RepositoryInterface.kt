@@ -7,5 +7,5 @@ interface RepositoryInterface {
     suspend fun getHourlyWeatherData(units:String) : List<Hourly>
     suspend fun getWeatherModelData(units:String) : WeatherModel
 
-    fun getFlowWeatherModelData(units: String): Flow<WeatherModel>
+    fun getFlowWeatherModelData(units: String?): Flow<WeatherModel>
 }

@@ -1,28 +1,20 @@
 package com.example.weatherly.utils
 
-class SettingsSetup private constructor(units: Units) {
-    val degreeSymbol = when (units) {
-        Units.METRIC -> Constants.CELSIUS
-        Units.IMPERIAL -> Constants.FAHRENHEIT
-        else -> Constants.KELVIN
-    }
-    val unit = when (units) {
-        Units.METRIC -> Constants.UNITS_METRIC
-        Units.IMPERIAL -> Constants.UNITS_IMPERIAL
-        else -> Constants.UNITS_STANDARD
-    }
+import android.content.SharedPreferences
 
-    val windSpeedUnit = when(units){
-        Units.METRIC -> Constants.METER_SEC
-        Units.IMPERIAL -> Constants.MILES_HOUR
-        else -> Constants.METER_SEC
-    }
+class SettingsSetup private constructor(sharedPreferences: SharedPreferences? = null) {
+    val unit = sharedPreferences?.getString(Constants.TEMP_KEY,"Empty")
+    val windSpeedUnit = sharedPreferences?.getString(Constants.WIND_KEY,"Empty")
+    val language = sharedPreferences?.getString(Constants.LANG_KEY,"Empty")
+    val location = sharedPreferences?.getString(Constants.LOCATION_KEY,"Empty")
+    val degreeSymbol = sharedPreferences?.getString(Constants.SYMBOL_KEY,"Empty")
+
 
     companion object {
         private var instance: SettingsSetup? = null
-        fun getInstance(units: Units= Units.STANDARD): SettingsSetup {
+        fun getInstance(sharedPreferences: SharedPreferences? = null): SettingsSetup {
             return instance ?: synchronized(this) {
-                val temp = SettingsSetup(units)
+                val temp = SettingsSetup(sharedPreferences)
                 instance = temp
                 temp
             }

@@ -27,7 +27,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#5945A5"
+        android:background="#121212"
         tools:context=".ui.home.HomeFragment">
 
         <ScrollView
@@ -51,10 +51,10 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:text="@{weatherDetailsBinding.city}"
-                    tools:text = "Cairo"
                     android:textColor="@color/white"
                     android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Cairo" />
 
                 <TextView
                     android:id="@+id/wether_desc"
@@ -123,6 +123,7 @@
                         android:textColor="@color/white"
                         tools:text="12:00 AM" />
                 </LinearLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -132,7 +133,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        app:cardBackgroundColor="#331C71"
+                        app:cardBackgroundColor="#1F1B24"
                         app:cardCornerRadius="25dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
