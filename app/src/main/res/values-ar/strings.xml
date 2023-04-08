@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">الاعدادات</string>
+    <string name="menu_home">الرئيسية</string>
+    <string name="today_label">اليوم</string>
+    <string name="week_label">حالة الاسبوع</string>
+    <string name="humidity_label">الرطوبة</string>
+    <string name="wind_label">سرعة الرياح</string>
+    <string name="cloud_label">الغيوم</string>
+    <string name="pressure_label">الضغط</string>
+    <string name="menu_alert">التنبيهات</string>
+    <string name="menu_settings">الاعدادت</string>
+    <string name="wind_speed_option">سرعة الرياح</string>
+    <string name="settings_header">الاعدادات</string>
+    <string name="temperature_options">درجة الحرارة</string>
+    <string name="kelvin_option">كلفن</string>
+    <string name="celsius_option">مئوي</string>
+    <string name="fahrenheit_option">فهرنهايت</string>
+    <string name="miles_option">ميل/ساعة</string>
+    <string name="meter_option">متر/ثانية</string>
+    <string name="languages_options">اللغات</string>
+    <string name="arabic_option">العربية</string>
+    <string name="english_option">الانجليزية</string>
+    <string name="location_options">الموقع</string>
+    <string name="gps_option">GPS</string>
+    <string name="map_option">الخريطة</string>
+    <string name="week_fragment_label">الحالة الاسبوعية</string>
+</resources>

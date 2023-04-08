@@ -40,7 +40,7 @@ class HomeAdapter(
         val iconUrl = "https://openweathermap.org/img/wn/${hour.weather.get(0).icon}.png"
         holder.binding.time = formattedDate
         holder.binding.hourlyObj = hours[position]
-        holder.binding.settings = SettingsSetup.getInstance()
+        holder.binding.bindingHourlySymbol = SettingsSetup.getSymbol()
         holder.binding.action = clickListener
         Glide.with(context).load(iconUrl).into(holder.binding.hourIcon)
 

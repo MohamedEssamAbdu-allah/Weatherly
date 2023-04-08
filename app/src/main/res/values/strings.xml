@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Weatherly</string>
+    <string name="app_name" translatable="false">Weatherly</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -32,4 +32,21 @@
     <string name="pressure_tv">%d %s</string>
     <string name="windSpeed_tv">%.2f %s</string>
     <string name="cloud_tv">%d%s</string>
+    <string name="menu_alert">Alerts</string>
+    <string name="menu_settings">Settings</string>
+    <string name="wind_speed_option">Wind Speed</string>
+    <string name="settings_header">Settings</string>
+    <string name="temperature_options">Temperature</string>
+    <string name="kelvin_option">Kelvin</string>
+    <string name="celsius_option">Celsius</string>
+    <string name="fahrenheit_option">Fahrenheit</string>
+    <string name="miles_option">Miles/hour</string>
+    <string name="meter_option">Meter/sec</string>
+    <string name="languages_options">Languages</string>
+    <string name="arabic_option">Arabic</string>
+    <string name="english_option">English</string>
+    <string name="location_options">Location</string>
+    <string name="gps_option">GPS</string>
+    <string name="map_option">Map</string>
+    <string name="week_fragment_label">Week Forecast</string>
 </resources>

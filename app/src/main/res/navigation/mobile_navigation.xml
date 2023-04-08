@@ -17,18 +17,18 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.weatherly.ui.gallery.GalleryFragment"
+        android:name="com.example.weatherly.ui.alert.AlertFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_alert" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.weatherly.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_settings"
+        android:name="com.example.weatherly.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/weekFragment"
         android:name="com.example.weatherly.ui.week.WeekFragment"
-        android:label="fragment_week"
+        android:label="@string/week_fragment_label"
         tools:layout="@layout/fragment_week" />
 </navigation>

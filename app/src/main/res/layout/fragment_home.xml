@@ -4,30 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-    <variable
-        name="currentTime"
-        type="com.example.weatherly.model.Current" />
-        <variable
-            name="hourlyTime"
-            type="com.example.weatherly.model.Hourly" />
-        <variable
-            name="settings"
-            type="com.example.weatherly.utils.SettingsSetup" />
+       <variable
+           name="bindingWindSpeed"
+           type="String" />
         <variable
             name="hourlyAdapterBinding"
             type="com.example.weatherly.ui.home.HomeAdapter" />
+
         <variable
-            name="homeViewModel"
-            type="com.example.weatherly.ui.home.HomeViewModel" />
+            name="bindingSymbol"
+            type="String" />
         <variable
             name="weatherDetailsBinding"
             type="com.example.weatherly.model.WeatherDetails" />
+        <variable
+            name="bindingCity"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#5945A5"
+        android:background="#121212"
         tools:context=".ui.home.HomeFragment">
 
         <ScrollView
@@ -50,11 +48,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:text="@{weatherDetailsBinding.city}"
-                    tools:text = "Cairo"
+                    android:text="@{bindingCity}"
                     android:textColor="@color/white"
                     android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Cairo" />
 
                 <TextView
                     android:id="@+id/wether_desc"
@@ -87,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="@{String.valueOf(weatherDetailsBinding.temp) + settings.degreeSymbol}"
+                        android:text="@{String.valueOf(weatherDetailsBinding.temp) + bindingSymbol}"
                         android:textColor="@color/white"
                         android:textSize="48sp"
                         android:textStyle="bold"
@@ -123,6 +121,7 @@
                         android:textColor="@color/white"
                         tools:text="12:00 AM" />
                 </LinearLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -132,7 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        app:cardBackgroundColor="#331C71"
+                        app:cardBackgroundColor="#1F1B24"
                         app:cardCornerRadius="25dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -194,7 +193,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
-                                android:text="@{String.valueOf(weatherDetailsBinding.windSpeed) + ' ' +settings.windSpeedUnit}"
+                                android:text="@{String.valueOf(weatherDetailsBinding.windSpeed) + ' ' +bindingWindSpeed}"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
                                 android:textStyle="bold"

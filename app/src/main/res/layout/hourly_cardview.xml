@@ -10,8 +10,8 @@
             name="hourlyObj"
             type="com.example.weatherly.model.Hourly" />
         <variable
-            name="settings"
-            type="com.example.weatherly.utils.SettingsSetup" />
+            name="bindingHourlySymbol"
+            type="String" />
         <variable
             name="action"
             type="com.example.weatherly.ui.home.HomeClickListener" />
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        app:cardBackgroundColor="#331C71"
+        app:cardBackgroundColor="#1F1B24"
         app:cardCornerRadius="25dp">
 
         <LinearLayout
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:text="@{hourlyObj.temp + settings.degreeSymbol}"
+                android:text="@{hourlyObj.temp + bindingHourlySymbol}"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

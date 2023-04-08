@@ -1,5 +1,6 @@
 package com.example.weatherly.ui.week
 
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,15 +16,16 @@ import com.example.weatherly.model.Repository
 import com.example.weatherly.model.WeatherDetails
 import com.example.weatherly.network.RetrofitClient
 import com.example.weatherly.utils.ApiState
+import com.example.weatherly.utils.Location
 import com.example.weatherly.utils.SettingsSetup
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class WeekFragment : Fragment() , DayClickListener{
     private lateinit var _binding: FragmentWeekBinding
-
-
+    lateinit var geoCoder : Geocoder
     private lateinit var weekViewModelFactory: WeekViewModelFactory
     private lateinit var weekAdapter: WeekAdapter
 
@@ -33,8 +35,7 @@ class WeekFragment : Fragment() , DayClickListener{
     ): View {
 
         weekViewModelFactory = WeekViewModelFactory(
-            Repository.getInstance(RetrofitClient.getInstance()),
-            SettingsSetup.getInstance()
+            Repository.getInstance(RetrofitClient.getInstance())
         )
         val weekViewModel =
             ViewModelProvider(this,weekViewModelFactory).get(WeekViewModel::class.java)
@@ -74,8 +75,12 @@ class WeekFragment : Fragment() , DayClickListener{
         val currentIconUrl = "https://openweathermap.org/img/wn/${apiState.weatherModel.daily[0].weather.get(0).icon}.png"
         Glide.with(requireContext()).load(currentIconUrl).into(_binding.dayWeatherIcon)
         _binding.weatherDayDetailsBinding = WeatherDetails.getWeekWeather(apiState.weatherModel.daily[0])
-        _binding.dayDateTv.text = WeatherDetails.getDate(apiState.weatherModel.daily[0].dt.toLong())
-        _binding.daySettings = SettingsSetup.getInstance()
+        _binding.bindingDay = WeatherDetails.getDate(apiState.weatherModel.daily[0].dt.toLong())
+        _binding.bindingWeeklySymbol = SettingsSetup.getSymbol()
+        _binding.bindingWeeklyWindSpeed = SettingsSetup.getWindSpped()
+        geoCoder = Geocoder(requireContext(), Locale.getDefault())
+        val addresses = geoCoder.getFromLocation(Location.lat, Location.lon,1)
+        _binding.bindingWeeklyCity = addresses?.get(0)?.adminArea
         weekAdapter = WeekAdapter(requireContext(),apiState.weatherModel.daily,this@WeekFragment)
         _binding.dailyAdapterBinding = weekAdapter
     }
