@@ -16,10 +16,7 @@ import com.example.weatherly.model.Hourly
 import com.example.weatherly.model.Repository
 import com.example.weatherly.model.WeatherDetails
 import com.example.weatherly.network.RetrofitClient
-import com.example.weatherly.utils.ApiState
-import com.example.weatherly.utils.Location
-import com.example.weatherly.utils.SettingsSetup
-import com.example.weatherly.utils.Units
+import com.example.weatherly.utils.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.*
@@ -36,7 +33,7 @@ class HomeFragment : Fragment(), HomeClickListener {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         homeViewModelFactory = HomeViewModelFactory(
-            Repository.getInstance(RetrofitClient.getInstance()), SettingsSetup.getInstance()
+            Repository.getInstance(RetrofitClient.getInstance())
         )
         val homeViewModel =
             ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
@@ -90,10 +87,11 @@ class HomeFragment : Fragment(), HomeClickListener {
         Glide.with(requireContext()).load(currentIconUrl).into(binding.weatherIcon)
         geoCoder = Geocoder(requireContext(), Locale.getDefault())
        val addresses = geoCoder.getFromLocation(Location.lat,Location.lon,1)
-        binding.weatherDetailsBinding =
-            WeatherDetails.getTodayWeather(apiState.weatherModel.current,addresses!!.get(0).adminArea )
+        binding.bindingCity = addresses?.get(0)?.adminArea
+        binding.bindingSymbol = SettingsSetup.getSymbol()
+        binding.bindingWindSpeed = SettingsSetup.getWindSpped()
+        binding.weatherDetailsBinding = WeatherDetails.getTodayWeather(apiState.weatherModel.current)
         binding.dateTv.text = WeatherDetails.getDate(apiState.weatherModel.current.dt.toLong())
-        binding.settings = SettingsSetup.getInstance()
         homeAdapter = HomeAdapter(
             requireContext(), apiState.weatherModel.hourly, this@HomeFragment
         )

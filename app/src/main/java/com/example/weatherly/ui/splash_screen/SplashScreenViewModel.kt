@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
-import com.example.weatherly.ui.settings.SettingsSetup2
+import com.example.weatherly.utils.SettingsSetup
 import com.example.weatherly.utils.Constants
 
 class SplashScreenViewModel : ViewModel() {
@@ -44,7 +44,7 @@ class SplashScreenViewModel : ViewModel() {
                 sharedPreferences.getString(Constants.TEMP_KEY, "Empty").toString()
             )
         }
-        SettingsSetup2.initialize(sharedPreferences)
+        SettingsSetup.initialize(sharedPreferences)
     }
 
 }

@@ -3,27 +3,30 @@ package com.example.weatherly.ui.settings
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import androidx.lifecycle.ViewModel
 import com.example.weatherly.utils.Constants
+import com.example.weatherly.utils.SettingsSetup
 import java.util.*
 
 
 class SettingsViewModel : ViewModel() {
 
-    private val _sharedPreference = SettingsSetup2.getSharedPref()
-    val editor: SharedPreferences.Editor = _sharedPreference.edit()
+    private val _sharedPreference = SettingsSetup.getSharedPref()
+    private val editor: SharedPreferences.Editor = _sharedPreference.edit()
 
     fun setMetric() {
         editor.putString(Constants.TEMP_KEY, Constants.TEMP_CELSIUS_OPTION)
+        editor.putString(Constants.SYMBOL_KEY,Constants.CELSIUS)
     }
 
     fun setStandard() {
         editor.putString(Constants.TEMP_KEY, Constants.TEMP_KELVIN_OPTION)
+        editor.putString(Constants.SYMBOL_KEY,Constants.KELVIN)
     }
 
     fun setImperial() {
         editor.putString(Constants.TEMP_KEY, Constants.TEMP_FAHRENHEIT_OPTION)
+        editor.putString(Constants.SYMBOL_KEY,Constants.FAHRENHEIT)
     }
 
     fun setMeter() {
@@ -54,7 +57,7 @@ class SettingsViewModel : ViewModel() {
 
     fun saveChanges() {
         editor.commit()
-        SettingsSetup2.updateSettings(_sharedPreference)
+        SettingsSetup.updateSettings(_sharedPreference)
     }
 
     private fun changeLang(lang: String, context: Context) {

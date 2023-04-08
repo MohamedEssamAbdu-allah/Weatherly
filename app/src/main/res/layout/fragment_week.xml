@@ -7,12 +7,22 @@
         <variable
             name="weatherDayDetailsBinding"
             type="com.example.weatherly.model.WeatherDetails" />
+
         <variable
-            name="daySettings"
-            type="com.example.weatherly.utils.SettingsSetup" />
+            name="bindingWeeklySymbol"
+            type="String" />
+        <variable
+            name="bindingWeeklyWindSpeed"
+            type="String" />
+        <variable
+            name="bindingWeeklyCity"
+            type="String" />
         <variable
             name="dailyAdapterBinding"
             type="com.example.weatherly.ui.week.WeekAdapter" />
+        <variable
+            name="bindingDay"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +88,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="40dp"
                             android:layout_marginEnd="60dp"
-                            android:text="@{String.valueOf(weatherDayDetailsBinding.temp) + daySettings.degreeSymbol}"
+                            android:text="@{String.valueOf(weatherDayDetailsBinding.temp) + bindingWeeklySymbol}"
                             android:textColor="@color/white"
                             android:textSize="50sp"
                             android:textStyle="bold"
@@ -92,7 +102,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
-                            android:text="Cairo,Alexandria"
+                            android:text="@{bindingWeeklyCity}"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -119,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="70dp"
                             android:layout_marginTop="40dp"
-                            android:text="Monday "
+                            android:text="@{bindingDay}"
                             android:textColor="@color/white"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/day_desc_tv" />
@@ -200,7 +210,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="@{String.valueOf(weatherDayDetailsBinding.windSpeed) + ' ' +daySettings.windSpeedUnit}"
+                            android:text="@{String.valueOf(weatherDayDetailsBinding.windSpeed) + ' ' +bindingWeeklyWindSpeed}"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold"

@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
@@ -16,11 +15,9 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherly.ui.main_activity.MainActivity
 import com.example.weatherly.databinding.ActivitySplashScreenBinding
-import com.example.weatherly.ui.home.HomeViewModel
 import com.example.weatherly.utils.Constants
 import com.example.weatherly.utils.Location
 import com.example.weatherly.utils.MyDialog
-import com.example.weatherly.utils.SettingsSetup
 import com.google.android.gms.location.*
 import java.util.concurrent.TimeUnit
 

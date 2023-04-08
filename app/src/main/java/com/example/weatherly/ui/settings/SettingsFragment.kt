@@ -1,6 +1,5 @@
 package com.example.weatherly.ui.settings
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,7 +29,7 @@ class SettingsFragment : Fragment() {
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        sharedPreferences = SettingsSetup2.getSharedPref()
+        sharedPreferences = SettingsSetup.getSharedPref()
 
 
 
@@ -47,27 +46,27 @@ class SettingsFragment : Fragment() {
 
     private fun setupRadioButtons(){
         binding.windSpeedGroup.check(
-            when (SettingsSetup2.getWindSpped()) {
+            when (SettingsSetup.getWindSpped()) {
                 Constants.METER_SEC_OPTION -> R.id.meter_rb
                 Constants.MILES_HOUR_OPTION -> R.id.miles_rb
                 else ->0
             }
         )
         binding.tempGroup.check(
-            when(SettingsSetup2.getTempUnits()){
+            when(SettingsSetup.getTempUnits()){
                 Constants.TEMP_CELSIUS_OPTION ->R.id.celsius_rb
                 Constants.TEMP_FAHRENHEIT_OPTION -> R.id.fahrenheit_rb
                 else -> R.id.kelvin_rb
             }
         )
         binding.langGroup.check(
-            when(SettingsSetup2.getLanguage()){
+            when(SettingsSetup.getLanguage()){
                 Constants.LANG_ENG_OPTION -> R.id.english_rb
                 else -> R.id.arabic_rb
             }
         )
         binding.locationGroup.check(
-            when(SettingsSetup2.getLocation()){
+            when(SettingsSetup.getLocation()){
                 Constants.GPS_OPTION -> R.id.gps_rb
                 else -> R.id.map_rb
             }

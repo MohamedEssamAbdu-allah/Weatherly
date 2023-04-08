@@ -32,7 +32,7 @@ class WeekAdapter (
         holder.binding.dayTime = WeatherDetails.getDate(days[position].dt.toLong())
         holder.binding.dayObj = days[position]
         holder.binding.dayAction = clickListener
-        holder.binding.daySettings = SettingsSetup.getInstance()
+        holder.binding.bindingDailySymbol = SettingsSetup.getSymbol()
         Glide.with(context).load(iconUrl).into(holder.binding.dayIcon)
 
     }

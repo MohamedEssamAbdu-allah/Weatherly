@@ -1,24 +1,59 @@
 package com.example.weatherly.utils
 
 import android.content.SharedPreferences
+import android.util.Log
 
-class SettingsSetup private constructor(sharedPreferences: SharedPreferences? = null) {
-    val unit = sharedPreferences?.getString(Constants.TEMP_KEY,"Empty")
-    val windSpeedUnit = sharedPreferences?.getString(Constants.WIND_KEY,"Empty")
-    val language = sharedPreferences?.getString(Constants.LANG_KEY,"Empty")
-    val location = sharedPreferences?.getString(Constants.LOCATION_KEY,"Empty")
-    val degreeSymbol = sharedPreferences?.getString(Constants.SYMBOL_KEY,"Empty")
+object SettingsSetup {
 
+    private lateinit var _sharedPreferences: SharedPreferences
+    private lateinit var _tempUnits : String
+    private lateinit var _windSpeed : String
+    private lateinit var _symbol : String
+    private lateinit var _language : String
+    private lateinit var _location : String
 
-    companion object {
-        private var instance: SettingsSetup? = null
-        fun getInstance(sharedPreferences: SharedPreferences? = null): SettingsSetup {
-            return instance ?: synchronized(this) {
-                val temp = SettingsSetup(sharedPreferences)
-                instance = temp
-                temp
-            }
-        }
+    fun initialize(sharedPreferences: SharedPreferences){
+        _sharedPreferences = sharedPreferences
+        readPrefs()
+        Log.i("Settings", " Initialized")
     }
+
+    fun readPrefs(){
+         _tempUnits = _sharedPreferences.getString(Constants.TEMP_KEY,"Empty").toString()
+        _windSpeed = _sharedPreferences.getString(Constants.WIND_KEY,"Empty").toString()
+        _language = _sharedPreferences.getString(Constants.LANG_KEY,"Empty").toString()
+        _location = _sharedPreferences.getString(Constants.LOCATION_KEY,"Empty").toString()
+        _symbol = _sharedPreferences.getString(Constants.SYMBOL_KEY,"Empty").toString()
+    }
+
+    fun getSharedPref() : SharedPreferences{
+        return _sharedPreferences
+    }
+
+    fun updateSettings(sharedPreferences: SharedPreferences){
+        _sharedPreferences = sharedPreferences
+        readPrefs()
+        Log.i("Settings update", " UPDATED!")
+    }
+    fun getTempUnits() : String{
+        return _tempUnits
+    }
+
+    fun getWindSpped() : String{
+        return _windSpeed
+    }
+
+    fun getLanguage() : String{
+        return _language
+    }
+
+    fun getLocation() : String{
+        return _location
+    }
+
+    fun getSymbol() : String{
+        return _symbol
+    }
+
 
 }
