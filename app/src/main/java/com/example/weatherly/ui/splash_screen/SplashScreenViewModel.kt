@@ -26,6 +26,8 @@ class SplashScreenViewModel : ViewModel() {
         editor.putString(Constants.LANG_KEY, Constants.LANG_ENG_OPTION)
         editor.putString(Constants.LOCATION_KEY, Constants.GPS_OPTION)
         editor.putString(Constants.SYMBOL_KEY, Constants.KELVIN)
+        editor.putString(Constants.LAT_VALUE,"0.5")
+        editor.putString(Constants.LON_VALUE,"0.10")
         editor.commit()
         Log.i("Default", "default shared pref created")
         return defaultSharedPref
@@ -41,10 +43,11 @@ class SplashScreenViewModel : ViewModel() {
             )
             Log.i(
                 "settings restored",
-                sharedPreferences.getString(Constants.TEMP_KEY, "Empty").toString()
+                sharedPreferences.getString(Constants.LOCATION_KEY, "Empty").toString()
             )
         }
         SettingsSetup.initialize(sharedPreferences)
+
     }
 
 }

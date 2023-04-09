@@ -9,7 +9,7 @@ interface WeatherService {
     suspend fun getWeather(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
-        @Query("units") unit :String?,
+        @Query("lang") lang :String?,
         @Query("appid") apiKey: String
     ): WeatherModel
 }

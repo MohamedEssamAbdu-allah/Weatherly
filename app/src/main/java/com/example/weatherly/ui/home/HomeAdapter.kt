@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.weatherly.databinding.HourlyCardviewBinding
 import com.example.weatherly.model.Hourly
-import com.example.weatherly.utils.SettingsSetup
+import com.example.weatherly.utils.Constants
 import java.text.DateFormat
 import java.util.*
 
@@ -40,7 +40,7 @@ class HomeAdapter(
         val iconUrl = "https://openweathermap.org/img/wn/${hour.weather.get(0).icon}.png"
         holder.binding.time = formattedDate
         holder.binding.hourlyObj = hours[position]
-        holder.binding.bindingHourlySymbol = SettingsSetup.getSymbol()
+        holder.binding.bindingHourlySymbol = Constants.KELVIN
         holder.binding.action = clickListener
         Glide.with(context).load(iconUrl).into(holder.binding.hourIcon)
 

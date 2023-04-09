@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
+import com.example.weatherly.R
 import com.example.weatherly.databinding.FragmentHomeBinding
 import com.example.weatherly.model.Hourly
 import com.example.weatherly.model.Repository
@@ -51,6 +52,10 @@ class HomeFragment : Fragment(), HomeClickListener {
                         initUI(result)
                     }
                     is ApiState.Failure -> {
+                        binding.homeProgressBar.visibility = View.GONE
+                        binding.scrollView2.visibility = View.GONE
+                        binding.failedImage.visibility = View.VISIBLE
+                        binding.failedText.visibility = View.VISIBLE
                         Toast.makeText(
                             requireContext(), "Couldn't download data", Toast.LENGTH_SHORT
                         ).show()
@@ -58,6 +63,8 @@ class HomeFragment : Fragment(), HomeClickListener {
                     else -> {
                         binding.homeProgressBar.visibility = View.VISIBLE
                         binding.scrollView2.visibility = View.GONE
+                        binding.failedImage.visibility = View.GONE
+                        binding.failedText.visibility = View.GONE
                         Toast.makeText(requireContext(), "Please wait", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -80,16 +87,21 @@ class HomeFragment : Fragment(), HomeClickListener {
 
     private fun initUI(apiState: ApiState.Success) {
         binding.homeProgressBar.visibility = View.GONE
+        binding.failedImage.visibility = View.GONE
+        binding.failedText.visibility = View.GONE
         binding.scrollView2.visibility = View.VISIBLE
         val currentIconUrl = "https://openweathermap.org/img/wn/${
             apiState.weatherModel.current.weather.get(0).icon
         }.png"
         Glide.with(requireContext()).load(currentIconUrl).into(binding.weatherIcon)
         geoCoder = Geocoder(requireContext(), Locale.getDefault())
-       val addresses = geoCoder.getFromLocation(Location.lat,Location.lon,1)
+       val addresses = geoCoder.getFromLocation(SettingsSetup.getLatitude(),SettingsSetup.getLongitude(),1)
         binding.bindingCity = addresses?.get(0)?.adminArea
         binding.bindingSymbol = SettingsSetup.getSymbol()
-        binding.bindingWindSpeed = SettingsSetup.getWindSpped()
+        binding.bindingWindSpeed = when(SettingsSetup.getWindSpped()){
+            Constants.METER_SEC_OPTION -> resources.getString(R.string.meter_option)
+            else -> resources.getString(R.string.miles_option)
+        }
         binding.weatherDetailsBinding = WeatherDetails.getTodayWeather(apiState.weatherModel.current)
         binding.dateTv.text = WeatherDetails.getDate(apiState.weatherModel.current.dt.toLong())
         homeAdapter = HomeAdapter(

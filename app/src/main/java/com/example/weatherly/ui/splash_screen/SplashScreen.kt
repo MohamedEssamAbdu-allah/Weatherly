@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
@@ -16,32 +17,34 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.weatherly.ui.main_activity.MainActivity
 import com.example.weatherly.databinding.ActivitySplashScreenBinding
 import com.example.weatherly.utils.Constants
-import com.example.weatherly.utils.Location
 import com.example.weatherly.utils.MyDialog
+import com.example.weatherly.utils.SettingsSetup
 import com.google.android.gms.location.*
 import java.util.concurrent.TimeUnit
 
 class SplashScreen : AppCompatActivity() {
 
-    //private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivitySplashScreenBinding
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val splashScreenViewModel =ViewModelProvider(this).get(SplashScreenViewModel::class.java)
+        val splashScreenViewModel = ViewModelProvider(this).get(SplashScreenViewModel::class.java)
         splashScreenViewModel.initSettings(this)
         fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
-        getLastLocation()
-
+        SettingsSetup.setLang(SettingsSetup.getLanguage(),this)
         Handler(Looper.getMainLooper())
     }
 
     override fun onResume() {
         super.onResume()
         if (checkPermissions()) {
-            getLastLocation()
+            if (SettingsSetup.getSharedPref().getString(Constants.LOCATION_KEY,"Empty").equals(Constants.GPS_OPTION)){
+                getLastLocation()
+            } else {
+                initLocationUsingMap(SettingsSetup.getSharedPref())
+            }
         }
     }
 
@@ -103,8 +106,12 @@ class SplashScreen : AppCompatActivity() {
             Log.i("latitutde", myLastLocation?.latitude.toString())
             Log.i("Longititude", myLastLocation?.longitude.toString())
             val intent = Intent(this@SplashScreen, MainActivity::class.java)
-            Location.lat = myLastLocation?.latitude!!
-            Location.lon = myLastLocation.longitude
+//            Location.lat = myLastLocation?.latitude!!
+//            Location.lon = myLastLocation.longitude
+            SettingsSetup.setLatitude(myLastLocation!!.latitude)
+            SettingsSetup.setLongitude(myLastLocation.longitude)
+            Log.i("SettingsSetup Lat ", SettingsSetup.getLatitude().toString())
+            Log.i("SettingsSetup Lon ", SettingsSetup.getLongitude().toString())
             startActivity(intent)
         }
 
@@ -119,6 +126,17 @@ class SplashScreen : AppCompatActivity() {
                 getLastLocation()
             }
         }
+    }
+
+    private fun initLocationUsingMap(sharedPreferences: SharedPreferences) {
+        SettingsSetup.setLatitude(
+            sharedPreferences.getString(Constants.LAT_VALUE, "0.0")!!.toDouble()
+        )
+        SettingsSetup.setLongitude(
+            sharedPreferences.getString(Constants.LON_VALUE, "0.0")!!.toDouble()
+        )
+        val intent = Intent(this@SplashScreen, MainActivity::class.java)
+        startActivity(intent)
     }
 
 }

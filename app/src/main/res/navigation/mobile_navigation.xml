@@ -25,10 +25,18 @@
         android:id="@+id/nav_settings"
         android:name="com.example.weatherly.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_nav_settings_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/weekFragment"
         android:name="com.example.weatherly.ui.week.WeekFragment"
         android:label="@string/week_fragment_label"
         tools:layout="@layout/fragment_week" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.weatherly.ui.map.MapsFragment"
+        android:label="MapsFragment" />
 </navigation>

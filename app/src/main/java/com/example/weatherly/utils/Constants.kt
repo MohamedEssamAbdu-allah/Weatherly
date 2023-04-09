@@ -6,6 +6,10 @@ object Constants {
     const val FAHRENHEIT = "\u2109"
     const val KELVIN = "\u212A"
 
+    //location details
+    const val LAT_VALUE ="lat"
+    const val LON_VALUE ="lon"
+
     //api key
     const val API_KEY = "743e6d5345fcf793390c31100d4e51e0"
 
@@ -38,10 +42,4 @@ object Constants {
     const val LANG_KEY = "lang"
     const val LOCATION_KEY = "location"
 
-}
-
-enum class Units {
-     METRIC,
-     IMPERIAL,
-     STANDARD,
 }

@@ -23,7 +23,7 @@ interface RemoteSource {
     suspend fun getWeatherModel(
         lat: Double,
         lon: Double,
-        units: String?,
+        lang: String?,
         apiKey: String
     ) : WeatherModel
 
