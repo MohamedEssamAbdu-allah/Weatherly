@@ -10,6 +10,9 @@ interface WeatherModelDAO {
     @Query("SELECT * FROM weatherModels")
     fun getAll(): Flow<List<WeatherModel>>
 
+    @Query("SELECT * FROM weatherModels WHERE id = :id")
+    fun getLocationWeather(id : Int) : WeatherModel
+
     @Upsert
     suspend fun insertOrUpdate(weatherModel: WeatherModel)
 

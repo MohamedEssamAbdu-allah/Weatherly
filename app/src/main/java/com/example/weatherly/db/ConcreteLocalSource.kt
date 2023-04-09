@@ -33,5 +33,9 @@ class ConcreteLocalSource private constructor(context: Context) : LocalSource{
         return dao.getAll()
     }
 
+    override fun getStoredLocationData(id :Int): WeatherModel {
+        return dao.getLocationWeather(id)
+    }
+
 
 }

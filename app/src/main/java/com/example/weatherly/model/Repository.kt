@@ -27,16 +27,16 @@ class Repository private constructor(private val remoteSource: RemoteSource, pri
         return remoteSource.getHourlyWeather(31.104994885376325,29.775266209000975, units, Constants.API_KEY)
     }
 
-//    override suspend fun getWeatherModelData(units: String): WeatherModel {
-//        return remoteSource.getWeatherModel(31.104994885376325,29.775266209000975, units, Constants.API_KEY)
-//    }
-
     override  fun getFlowWeatherModelData(lat :Double,lon:Double): Flow<WeatherModel> {
         return flow { emit(remoteSource.getWeatherModel(lat,lon, SettingsSetup.getLanguage(), Constants.API_KEY)) }
     }
 
     override fun getLocationsData(): Flow<List<WeatherModel>> {
         return localSource.getStoredWeatherData()
+    }
+
+    override fun getOneLocationData(id : Int): WeatherModel {
+        return localSource.getStoredLocationData(id)
     }
 
     override suspend fun saveLocationWeather(weatherModel: WeatherModel) {

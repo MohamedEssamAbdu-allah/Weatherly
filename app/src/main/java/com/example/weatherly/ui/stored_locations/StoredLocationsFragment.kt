@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import com.example.weatherly.databinding.FragmentStoredLocationsBinding
 import com.example.weatherly.db.ConcreteLocalSource
 import com.example.weatherly.model.Repository
+import com.example.weatherly.model.WeatherModel
 import com.example.weatherly.network.RetrofitClient
 
 class StoredLocationsFragment : Fragment(), LocationClickListener {
@@ -45,6 +46,15 @@ class StoredLocationsFragment : Fragment(), LocationClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+    }
+
+    override fun showStoredLocation(weatherModel: WeatherModel) {
+        Navigation.findNavController(_binding.root)
+            .navigate(StoredLocationsFragmentDirections.actionNavLocationsToLocationDetailsFragment(weatherModel))
+    }
+
+    override fun deleteStoredLocation(weatherModel: WeatherModel) {
+        viewModel.deleteStoredLocation(weatherModel)
     }
 
 }

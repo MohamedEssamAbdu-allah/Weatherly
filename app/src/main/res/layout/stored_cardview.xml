@@ -29,7 +29,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="@{()-> action.showStoredLocation(locationData)}">
 
             <TextView
                 android:id="@+id/location_tv"
@@ -91,6 +92,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/location_tv"
                 app:layout_constraintVertical_bias="0.0"
+                android:onClick="@{()-> action.deleteStoredLocation(locationData)}"
                 app:srcCompat="@drawable/baseline_wrong_location_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

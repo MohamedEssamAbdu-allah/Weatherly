@@ -7,17 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherly.model.RepositoryInterface
 import com.example.weatherly.model.WeatherModel
 import com.example.weatherly.utils.ApiState
-import com.example.weatherly.utils.SettingsSetup
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class StoredLocationsViewModel(private val repositoryInterface: RepositoryInterface) : ViewModel() {
 
     private var privateStoredLocations: MutableLiveData<List<WeatherModel>> = MutableLiveData<List<WeatherModel>>()
-    val stateFlow = MutableStateFlow<ApiState>(ApiState.Loading)
     val storedLocations : LiveData<List<WeatherModel>> = privateStoredLocations
 
 
@@ -29,6 +25,12 @@ class StoredLocationsViewModel(private val repositoryInterface: RepositoryInterf
             repositoryInterface.getLocationsData().collect{
                 privateStoredLocations.postValue(it)
             }
+        }
+    }
+
+     fun deleteStoredLocation(weatherModel: WeatherModel){
+        viewModelScope.launch {
+            repositoryInterface.removeLocationWeather(weatherModel)
         }
     }
 

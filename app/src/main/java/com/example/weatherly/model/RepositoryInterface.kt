@@ -8,6 +8,7 @@ interface RepositoryInterface {
 //    suspend fun getWeatherModelData(units: String): WeatherModel
     fun getFlowWeatherModelData(lat:Double,lon:Double): Flow<WeatherModel>
     fun getLocationsData(): Flow<List<WeatherModel>>
+    fun getOneLocationData(id : Int) : WeatherModel
     suspend fun saveLocationWeather(weatherModel: WeatherModel)
     suspend fun removeLocationWeather(weatherModel: WeatherModel)
 

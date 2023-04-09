@@ -47,5 +47,17 @@
         <action
             android:id="@+id/action_storedLocations_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_nav_locations_to_locationDetailsFragment"
+            app:destination="@id/locationDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationDetailsFragment"
+        android:name="com.example.weatherly.ui.location_details.LocationDetailsFragment"
+        android:label="fragment_location_details"
+        tools:layout="@layout/fragment_location_details" >
+        <argument
+            android:name="weatherLocation"
+            app:argType="com.example.weatherly.model.WeatherModel" />
     </fragment>
 </navigation>
