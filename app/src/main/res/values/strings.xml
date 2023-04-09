@@ -2,8 +2,8 @@
     <string name="app_name" translatable="false">Weatherly</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Weatherly</string>
+    <string name="nav_header_subtitle">Weather forecast</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -49,4 +49,5 @@
     <string name="gps_option">GPS</string>
     <string name="map_option">Map</string>
     <string name="week_fragment_label">Week Forecast</string>
+    <string name="filed_text">Couldn\'t download weather data, please check your network connectivity</string>
 </resources>

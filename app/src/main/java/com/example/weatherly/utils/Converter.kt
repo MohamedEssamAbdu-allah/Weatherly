@@ -1,18 +1,21 @@
 package com.example.weatherly.utils
 
 object Converter {
-    fun celsiusToFahrenheit(celsius: Double): String {
-        val fahrenheit = celsius * 1.8 + 32
-        return "%.2f".format(fahrenheit)
+    fun kelvinToCelsius(kelvin: Double): String {
+        val celsius = kelvin - 273.15
+        return "%.1f".format(celsius)
     }
-
-    fun celsiusToKelvin(celsius: Double): String {
-        val kelvin = celsius + 273.15
-        return "%.2f".format(kelvin)
+    fun kelvinToFahrenheit(kelvin: Double): String {
+        val fahrenheit = (kelvin - 273.15) * 9/5 + 32
+        return "%.2f".format(fahrenheit)
     }
 
     fun metersPerSecToMilesPerHr(metersPerSec: Double): String {
         val milesPerHr = metersPerSec * 2.23694
         return "%.2f".format(milesPerHr)
     }
+
+
+
+
 }

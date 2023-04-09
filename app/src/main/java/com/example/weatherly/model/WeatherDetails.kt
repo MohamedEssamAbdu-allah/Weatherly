@@ -31,11 +31,11 @@ open class WeatherDetails {
             val weatherDetails = WeatherDetails()
             weatherDetails.temp = when (SettingsSetup.getTempUnits()) {
                 Constants.TEMP_FAHRENHEIT_OPTION -> {
-                    Converter.celsiusToFahrenheit(hourly.temp)
+                    Converter.kelvinToFahrenheit(hourly.temp)
                 }
 
-                Constants.TEMP_KELVIN_OPTION -> {
-                    Converter.celsiusToKelvin(hourly.temp)
+                Constants.TEMP_CELSIUS_OPTION -> {
+                    Converter.kelvinToCelsius(hourly.temp)
                 }
                 else -> hourly.temp.toString()
             }
@@ -59,11 +59,11 @@ open class WeatherDetails {
             val formattedDate = dateFormat.format(current.dt.toLong() * 1000)
             weatherDetails.temp = when (SettingsSetup.getTempUnits()) {
                 Constants.TEMP_FAHRENHEIT_OPTION -> {
-                    Converter.celsiusToFahrenheit(current.temp)
+                    Converter.kelvinToFahrenheit(current.temp)
                 }
 
-                Constants.TEMP_KELVIN_OPTION -> {
-                    Converter.celsiusToKelvin(current.temp)
+                Constants.TEMP_CELSIUS_OPTION -> {
+                    Converter.kelvinToCelsius(current.temp)
                 }
                 else -> current.temp.toString()
             }
@@ -87,11 +87,11 @@ open class WeatherDetails {
             val formattedDate = dateFormat.format(daily.dt.toLong() * 1000)
             weatherDetails.temp = when (SettingsSetup.getTempUnits()) {
                 Constants.TEMP_FAHRENHEIT_OPTION -> {
-                    Converter.celsiusToFahrenheit(daily.temp.max)
+                    Converter.kelvinToFahrenheit(daily.temp.max)
                 }
 
-                Constants.TEMP_KELVIN_OPTION -> {
-                    Converter.celsiusToKelvin(daily.temp.max)
+                Constants.TEMP_CELSIUS_OPTION -> {
+                    Converter.kelvinToCelsius(daily.temp.max)
                 }
                 else -> daily.temp.max.toString()
             }

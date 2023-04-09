@@ -23,6 +23,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home_constraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#121212"
@@ -344,6 +345,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/failed_image"
+            android:layout_width="216dp"
+            android:layout_height="237dp"
+            android:layout_marginBottom="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/failed2" />
+
+        <TextView
+            android:id="@+id/failed_text"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/filed_text"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/failed_image"
+            app:layout_constraintStart_toStartOf="@+id/failed_image"
+            app:layout_constraintTop_toBottomOf="@+id/failed_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.weatherly.databinding.DailyCardviewBinding
 import com.example.weatherly.model.Daily
 import com.example.weatherly.model.WeatherDetails
-import com.example.weatherly.utils.SettingsSetup
+import com.example.weatherly.utils.Constants
 
 class WeekAdapter (
     private val context: Context,
@@ -32,7 +32,7 @@ class WeekAdapter (
         holder.binding.dayTime = WeatherDetails.getDate(days[position].dt.toLong())
         holder.binding.dayObj = days[position]
         holder.binding.dayAction = clickListener
-        holder.binding.bindingDailySymbol = SettingsSetup.getSymbol()
+        holder.binding.bindingDailySymbol = Constants.KELVIN
         Glide.with(context).load(iconUrl).into(holder.binding.dayIcon)
 
     }

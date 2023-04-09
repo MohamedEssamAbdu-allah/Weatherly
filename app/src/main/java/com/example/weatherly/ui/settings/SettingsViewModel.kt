@@ -3,10 +3,10 @@ package com.example.weatherly.ui.settings
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.example.weatherly.utils.Constants
 import com.example.weatherly.utils.SettingsSetup
-import java.util.*
 
 
 class SettingsViewModel : ViewModel() {
@@ -51,8 +51,9 @@ class SettingsViewModel : ViewModel() {
         editor.putString(Constants.LOCATION_KEY, Constants.MAP_OPTION)
     }
 
-    fun SetGPS() {
+    fun SetGPS(context: Context) {
         editor.putString(Constants.LOCATION_KEY, Constants.GPS_OPTION)
+        Toast.makeText(context,"Restart is required to save this change",Toast.LENGTH_LONG).show()
     }
 
     fun saveChanges() {
@@ -61,12 +62,7 @@ class SettingsViewModel : ViewModel() {
     }
 
     private fun changeLang(lang: String, context: Context) {
-        val config = context.resources.configuration
-        val locale = Locale(lang)
-        Locale.setDefault(locale)
-        config.setLocale(locale)
-        context.createConfigurationContext(config)
-        context.resources.updateConfiguration(config, context.resources.displayMetrics)
+        SettingsSetup.setLang(lang,context)
         context.startActivity(Intent(context, context::class.java))
     }
 

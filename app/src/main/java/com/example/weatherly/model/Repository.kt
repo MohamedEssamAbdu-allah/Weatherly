@@ -2,7 +2,7 @@ package com.example.weatherly.model
 
 import com.example.weatherly.network.RemoteSource
 import com.example.weatherly.utils.Constants
-import com.example.weatherly.utils.Location
+import com.example.weatherly.utils.SettingsSetup
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -18,10 +18,6 @@ class Repository private constructor(private val remoteSource: RemoteSource) : R
         }
     }
 
-    fun makePref(){
-
-    }
-
     override suspend fun getWeatherData(units:String): Current {
        return remoteSource.getCurrentWeather(31.104994885376325,29.775266209000975, units, Constants.API_KEY)
     }
@@ -34,7 +30,7 @@ class Repository private constructor(private val remoteSource: RemoteSource) : R
         return remoteSource.getWeatherModel(31.104994885376325,29.775266209000975, units, Constants.API_KEY)
     }
 
-    override  fun getFlowWeatherModelData(units: String?): Flow<WeatherModel> {
-        return flow { emit(remoteSource.getWeatherModel(Location.lat,Location.lon, units, Constants.API_KEY)) }
+    override  fun getFlowWeatherModelData(): Flow<WeatherModel> {
+        return flow { emit(remoteSource.getWeatherModel(SettingsSetup.getLatitude(),SettingsSetup.getLongitude(), SettingsSetup.getLanguage(), Constants.API_KEY)) }
     }
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="nav_header_title">Weatherly</string>
+    <string name="nav_header_subtitle">للتنبوء بحالة الطقس</string>
     <string name="action_settings">الاعدادات</string>
     <string name="menu_home">الرئيسية</string>
     <string name="today_label">اليوم</string>
@@ -25,4 +27,5 @@
     <string name="gps_option">GPS</string>
     <string name="map_option">الخريطة</string>
     <string name="week_fragment_label">الحالة الاسبوعية</string>
+    <string name="filed_text">تعذر تحميل بيانات الطقس ,برجاء تفقد اتصالك بالانترنت</string>
 </resources>
