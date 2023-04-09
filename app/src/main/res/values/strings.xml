@@ -50,4 +50,6 @@
     <string name="map_option">Map</string>
     <string name="week_fragment_label">Week Forecast</string>
     <string name="filed_text">Couldn\'t download weather data, please check your network connectivity</string>
+    <string name="stored_label">Stored Locations</string>
+    <string name="menu_stored_locations">Saved</string>
 </resources>

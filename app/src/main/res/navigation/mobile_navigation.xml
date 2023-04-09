@@ -39,4 +39,13 @@
         android:id="@+id/mapsFragment"
         android:name="com.example.weatherly.ui.map.MapsFragment"
         android:label="MapsFragment" />
+    <fragment
+        android:id="@+id/nav_locations"
+        android:name="com.example.weatherly.ui.stored_locations.StoredLocationsFragment"
+        android:label="fragment_stored_locations"
+        tools:layout="@layout/fragment_stored_locations" >
+        <action
+            android:id="@+id/action_storedLocations_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
 </navigation>

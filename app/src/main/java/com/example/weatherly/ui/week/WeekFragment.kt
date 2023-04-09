@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.weatherly.R
 import com.example.weatherly.databinding.FragmentWeekBinding
+import com.example.weatherly.db.ConcreteLocalSource
 import com.example.weatherly.model.Daily
 import com.example.weatherly.model.Repository
 import com.example.weatherly.model.WeatherDetails
@@ -36,7 +37,7 @@ class WeekFragment : Fragment() , DayClickListener{
     ): View {
 
         weekViewModelFactory = WeekViewModelFactory(
-            Repository.getInstance(RetrofitClient.getInstance())
+            Repository.getInstance(RetrofitClient.getInstance(),ConcreteLocalSource.getInstance(requireContext()))
         )
         val weekViewModel =
             ViewModelProvider(this,weekViewModelFactory).get(WeekViewModel::class.java)

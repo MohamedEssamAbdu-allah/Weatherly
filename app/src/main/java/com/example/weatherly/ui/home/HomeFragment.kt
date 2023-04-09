@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.weatherly.R
 import com.example.weatherly.databinding.FragmentHomeBinding
+import com.example.weatherly.db.ConcreteLocalSource
 import com.example.weatherly.model.Hourly
 import com.example.weatherly.model.Repository
 import com.example.weatherly.model.WeatherDetails
@@ -34,7 +35,7 @@ class HomeFragment : Fragment(), HomeClickListener {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         homeViewModelFactory = HomeViewModelFactory(
-            Repository.getInstance(RetrofitClient.getInstance())
+            Repository.getInstance(RetrofitClient.getInstance(),ConcreteLocalSource.getInstance(requireContext()))
         )
         val homeViewModel =
             ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
