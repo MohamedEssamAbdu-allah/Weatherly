@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "weatherModels")
 data class WeatherModel(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) var id: Int = 0,
     val current: Current,
     val daily: List<Daily>,
     val hourly: List<Hourly>,

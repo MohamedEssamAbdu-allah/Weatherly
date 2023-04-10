@@ -131,7 +131,9 @@ class LocationDetailsFragment : Fragment(), HomeClickListener {
         val addresses = geoCoder.getFromLocation(
             weatherModel.lat,
             weatherModel.lon,1)
-        _binding.storedLocationCity = addresses?.get(0)?.adminArea
+        if (addresses != null) {
+            _binding.storedLocationCity = addresses.get(0).adminArea ?: "Unkown"
+        }
         _binding.storedLocationSymbol = SettingsSetup.getSymbol()
         _binding.storedLocationWind = when(SettingsSetup.getWindSpped()){
             Constants.METER_SEC_OPTION -> resources.getString(R.string.meter_option)

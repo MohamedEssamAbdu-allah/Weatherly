@@ -85,7 +85,9 @@ class WeekFragment : Fragment() , DayClickListener{
         }
         geoCoder = Geocoder(requireContext(), Locale.getDefault())
         val addresses = geoCoder.getFromLocation(SettingsSetup.getLatitude(),SettingsSetup.getLongitude(),1)
-        _binding.bindingWeeklyCity = addresses?.get(0)?.adminArea
+        if (addresses != null) {
+            _binding.bindingWeeklyCity = addresses.get(0).adminArea ?: "Unkown"
+        }
         weekAdapter = WeekAdapter(requireContext(),apiState.weatherModel.daily,this@WeekFragment)
         _binding.dailyAdapterBinding = weekAdapter
     }

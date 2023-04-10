@@ -18,19 +18,16 @@ import com.example.weatherly.databinding.FragmentMapsBinding
 import com.example.weatherly.db.ConcreteLocalSource
 import com.example.weatherly.model.Repository
 import com.example.weatherly.network.RetrofitClient
-import com.example.weatherly.ui.home.HomeViewModel
-import com.example.weatherly.ui.home.HomeViewModelFactory
 import com.example.weatherly.utils.Constants
 import com.example.weatherly.utils.SettingsSetup
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.*
 
 class MapsFragment : Fragment() {
     private lateinit var mMap: GoogleMap
@@ -92,7 +89,7 @@ class MapsFragment : Fragment() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-                val address: Address = addressList!![0]
+                val address: Address = addressList?.get(0) ?: Address(Locale.getDefault())
                 val latLng = LatLng(address.latitude, address.longitude)
                 mMap.addMarker(MarkerOptions().position(latLng).title(location))
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))

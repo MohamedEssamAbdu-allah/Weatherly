@@ -97,7 +97,9 @@ class HomeFragment : Fragment(), HomeClickListener {
         Glide.with(requireContext()).load(currentIconUrl).into(binding.weatherIcon)
         geoCoder = Geocoder(requireContext(), Locale.getDefault())
        val addresses = geoCoder.getFromLocation(SettingsSetup.getLatitude(),SettingsSetup.getLongitude(),1)
-        binding.bindingCity = addresses?.get(0)?.adminArea
+        if (addresses != null) {
+            binding.bindingCity = addresses.get(0).adminArea ?: "Unkown"
+        }
         binding.bindingSymbol = SettingsSetup.getSymbol()
         binding.bindingWindSpeed = when(SettingsSetup.getWindSpped()){
             Constants.METER_SEC_OPTION -> resources.getString(R.string.meter_option)
