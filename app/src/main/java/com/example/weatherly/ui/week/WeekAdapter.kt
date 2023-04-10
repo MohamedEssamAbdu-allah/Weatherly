@@ -12,7 +12,7 @@ import com.example.weatherly.utils.Constants
 
 class WeekAdapter (
     private val context: Context,
-    private val days: List<Daily>,
+    private val locations: List<Daily>,
     private val clickListener: DayClickListener
 ) :
     RecyclerView.Adapter<WeekAdapter.MyViewHolder>() {
@@ -27,10 +27,10 @@ class WeekAdapter (
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val day = days[position]
+        val day = locations[position]
         val iconUrl = "https://openweathermap.org/img/wn/${day.weather.get(0).icon}.png"
-        holder.binding.dayTime = WeatherDetails.getDate(days[position].dt.toLong())
-        holder.binding.dayObj = days[position]
+        holder.binding.dayTime = WeatherDetails.getDate(locations[position].dt.toLong())
+        holder.binding.dayObj = locations[position]
         holder.binding.dayAction = clickListener
         holder.binding.bindingDailySymbol = Constants.KELVIN
         Glide.with(context).load(iconUrl).into(holder.binding.dayIcon)
@@ -38,6 +38,6 @@ class WeekAdapter (
     }
 
     override fun getItemCount(): Int {
-        return days.size
+        return locations.size
     }
 }

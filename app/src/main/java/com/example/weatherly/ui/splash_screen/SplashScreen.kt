@@ -33,14 +33,26 @@ class SplashScreen : AppCompatActivity() {
         val splashScreenViewModel = ViewModelProvider(this).get(SplashScreenViewModel::class.java)
         splashScreenViewModel.initSettings(this)
         fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
-        SettingsSetup.setLang(SettingsSetup.getLanguage(),this)
+        SettingsSetup.setLang(SettingsSetup.getLanguage(), this)
+        if (SettingsSetup.getSharedPref().getString(Constants.LOCATION_KEY, "Empty")
+                .equals(Constants.GPS_OPTION)
+        ) {
+            getLastLocation()
+            Log.i("Location", "Retrieved from Gps")
+        } else {
+            initLocationUsingMap(SettingsSetup.getSharedPref())
+            Log.i("Location", "Retrieved from Map")
+        }
+
         Handler(Looper.getMainLooper())
     }
 
     override fun onResume() {
         super.onResume()
         if (checkPermissions()) {
-            if (SettingsSetup.getSharedPref().getString(Constants.LOCATION_KEY,"Empty").equals(Constants.GPS_OPTION)){
+            if (SettingsSetup.getSharedPref().getString(Constants.LOCATION_KEY, "Empty")
+                    .equals(Constants.GPS_OPTION)
+            ) {
                 getLastLocation()
             } else {
                 initLocationUsingMap(SettingsSetup.getSharedPref())
@@ -106,8 +118,6 @@ class SplashScreen : AppCompatActivity() {
             Log.i("latitutde", myLastLocation?.latitude.toString())
             Log.i("Longititude", myLastLocation?.longitude.toString())
             val intent = Intent(this@SplashScreen, MainActivity::class.java)
-//            Location.lat = myLastLocation?.latitude!!
-//            Location.lon = myLastLocation.longitude
             SettingsSetup.setLatitude(myLastLocation!!.latitude)
             SettingsSetup.setLongitude(myLastLocation.longitude)
             Log.i("SettingsSetup Lat ", SettingsSetup.getLatitude().toString())
